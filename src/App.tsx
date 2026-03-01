@@ -1694,10 +1694,10 @@ const WhatsAppFAB = () => (
     whileHover={{ scale: 1.1 }}
     whileTap={{ scale: 0.9 }}
     onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-    className="fixed bottom-8 right-8 z-50 w-16 h-16 bg-green-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-green-500 transition-colors glow-subtle"
+    className="fixed bottom-24 right-8 z-50 w-16 h-16 bg-[#128C7E] text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-[#075E54] transition-colors md:bottom-8"
     aria-label="Falar conosco no WhatsApp"
   >
-    <Phone className="w-8 h-8" />
+    <MessageCircle className="w-8 h-8" />
   </motion.button>
 );
 
@@ -1785,12 +1785,12 @@ const Testimonials = () => (
 );
 
 const StickyMobileCTA = () => (
-  <div className="md:hidden fixed bottom-0 left-0 right-0 z-[60] p-4 bg-brand-dark/80 backdrop-blur-lg border-t border-white/5">
+  <div className="md:hidden fixed bottom-0 left-0 right-0 z-[60] p-4 bg-brand-dark/95 backdrop-blur-xl border-t border-white/5">
     <button
       onClick={() => window.open('https://wa.me/5538984056240?text=Olá! Vim pelo site e gostaria de um orçamento.', '_blank')}
-      className="btn-fire w-full py-4 text-white text-[10px] uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-3"
+      className="btn-fire w-full py-5 text-white text-[10px] uppercase tracking-[0.3em] font-bold flex items-center justify-center gap-3 shadow-2xl shadow-brand-red/20"
     >
-      <Phone className="w-4 h-4" /> Solicitar Orçamento Grátis
+      <MessageCircle className="w-4 h-4" /> Solicitar Orçamento Grátis
     </button>
   </div>
 );
