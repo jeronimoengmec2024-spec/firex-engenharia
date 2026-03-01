@@ -94,7 +94,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-700 ${scrolled ? 'bg-brand-dark/95 backdrop-blur-md py-4' : 'bg-transparent py-8'}`}>
+    <nav className={`fixed top-0 w-full z-[100] transition-all duration-700 ${scrolled ? 'bg-brand-dark/95 backdrop-blur-md py-4' : 'bg-transparent py-8'}`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex justify-between items-center">
           <Link
@@ -153,8 +153,8 @@ const Navbar = () => {
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[60] bg-brand-dark md:hidden flex flex-col"
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="fixed inset-0 z-[110] bg-brand-dark md:hidden flex flex-col"
           >
             <div className="flex justify-between items-center p-8 border-b border-white/5">
               <span className="font-display font-bold text-2xl tracking-tight text-white leading-none">
@@ -1786,7 +1786,7 @@ const Testimonials = () => (
 );
 
 const StickyMobileCTA = () => (
-  <div className="md:hidden fixed bottom-0 left-0 right-0 z-[60] p-4 bg-brand-dark/95 backdrop-blur-xl border-t border-white/5">
+  <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 p-4 bg-brand-dark/95 backdrop-blur-xl border-t border-white/5">
     <button
       onClick={() => window.open('https://wa.me/5538984056240?text=Olá! Vim pelo site e gostaria de um orçamento.', '_blank')}
       className="btn-fire w-full py-5 text-white text-[10px] uppercase tracking-[0.3em] font-bold flex items-center justify-center gap-3 shadow-2xl shadow-brand-red/20"
