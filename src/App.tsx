@@ -63,6 +63,14 @@ const SEOData = () => (
   </Helmet>
 );
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
 // --- UI Components ---
 
 const Navbar = () => {
@@ -104,13 +112,20 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center gap-12">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.name}
-                href={link.href}
+                onClick={() => {
+                  if (window.location.pathname === '/') {
+                    const el = document.querySelector(link.href);
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    window.location.href = '/' + link.href;
+                  }
+                }}
                 className="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-500 hover:text-white transition-colors"
               >
                 {link.name}
-              </a>
+              </button>
             ))}
             <button
               onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
@@ -153,17 +168,24 @@ const Navbar = () => {
             <div className="flex-1 overflow-y-auto p-8 flex flex-col justify-center">
               <div className="space-y-8">
                 {navLinks.map((link, i) => (
-                  <motion.a
+                  <motion.button
                     key={link.name}
-                    href={link.href}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    className="block text-4xl font-bold text-white hover:text-brand-gold transition-colors"
-                    onClick={() => setIsOpen(false)}
+                    className="block text-4xl font-bold text-white hover:text-brand-gold transition-colors text-left"
+                    onClick={() => {
+                      setIsOpen(false);
+                      if (window.location.pathname === '/') {
+                        const el = document.querySelector(link.href);
+                        el?.scrollIntoView({ behavior: 'smooth' });
+                      } else {
+                        window.location.href = '/' + link.href;
+                      }
+                    }}
                   >
                     {link.name}
-                  </motion.a>
+                  </motion.button>
                 ))}
               </div>
 
@@ -1162,48 +1184,51 @@ const BlogSection = () => (
       {/* Cards Grid */}
       <div className="precision-grid md:grid-cols-2">
         {blogPosts.map((post, i) => (
-          <motion.a
+          <motion.div
             key={post.slug}
-            href={post.slug}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
-            className="group block bg-brand-dark border border-white/5 overflow-hidden hover:bg-white/[0.02] transition-all duration-700"
           >
-            {/* Image */}
-            <div className="relative overflow-hidden h-64">
-              <img
-                loading="lazy"
-                src={post.image}
-                alt={post.title}
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent opacity-60" />
-              <span className={`absolute top-6 left-6 text-[9px] uppercase tracking-widest font-bold ${post.tagColor} bg-black/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/5`}>
-                {post.tag}
-              </span>
-            </div>
-
-            {/* Content */}
-            <div className="p-12">
-              <h3 className="text-xl font-bold text-white mb-4 leading-tight group-hover:text-brand-gold transition-colors">
-                {post.title}
-              </h3>
-              <p className="text-zinc-500 text-base font-light leading-relaxed mb-10">
-                {post.desc}
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-bold">
-                  {post.readTime} leitura
+            <Link
+              to={post.slug}
+              className="group block bg-brand-dark border border-white/5 overflow-hidden hover:bg-white/[0.02] transition-all duration-700"
+            >
+              {/* Image */}
+              <div className="relative overflow-hidden h-64">
+                <img
+                  loading="lazy"
+                  src={post.image}
+                  alt={post.title}
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent opacity-60" />
+                <span className={`absolute top-6 left-6 text-[9px] uppercase tracking-widest font-bold ${post.tagColor} bg-black/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/5`}>
+                  {post.tag}
                 </span>
-                <div className="flex items-center gap-3 text-brand-red text-[11px] uppercase tracking-widest font-bold group-hover:gap-6 transition-all duration-500">
-                  Ler Artigo
-                  <ArrowRight className="w-4 h-4" />
+              </div>
+
+              {/* Content */}
+              <div className="p-12">
+                <h3 className="text-xl font-bold text-white mb-4 leading-tight group-hover:text-brand-gold transition-colors">
+                  {post.title}
+                </h3>
+                <p className="text-zinc-500 text-base font-light leading-relaxed mb-10">
+                  {post.desc}
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-bold">
+                    {post.readTime} leitura
+                  </span>
+                  <div className="flex items-center gap-3 text-brand-red text-[11px] uppercase tracking-widest font-bold group-hover:gap-6 transition-all duration-500">
+                    Ler Artigo
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.a>
+            </Link>
+          </motion.div>
         ))}
       </div>
 
@@ -1261,7 +1286,7 @@ const BlogSection = () => (
         </div>
       </motion.div>
     </div>
-  </section>
+  </section >
 );
 
 // ====================================================
@@ -1604,7 +1629,19 @@ const Footer = () => (
           <ul className="space-y-6">
             {['Serviços', 'Expertise', 'Segmentos', 'Blog', 'FAQ'].map(item => (
               <li key={item}>
-                <a href={`#${item.toLowerCase()}`} className="text-zinc-500 text-[11px] uppercase tracking-[0.2em] font-bold hover:text-white transition-colors duration-300">{item}</a>
+                <button
+                  onClick={() => {
+                    if (window.location.pathname === '/') {
+                      const el = document.querySelector(`#${item.toLowerCase()}`);
+                      el?.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      window.location.href = `/#${item.toLowerCase()}`;
+                    }
+                  }}
+                  className="text-zinc-500 text-[11px] uppercase tracking-[0.2em] font-bold hover:text-white transition-colors duration-300 text-left"
+                >
+                  {item}
+                </button>
               </li>
             ))}
           </ul>
@@ -1798,6 +1835,7 @@ export default function App() {
       <div className="min-h-screen font-sans selection:bg-brand-red selection:text-white bg-brand-dark">
         <SEOData />
         <LocalBusinessSchema />
+        <ScrollToTop />
         <Navbar />
         <WhatsAppFAB />
         <StickyMobileCTA />
