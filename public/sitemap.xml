@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Core Pages -->
+  <url><loc>https://firexengenharia.com.br/</loc><lastmod>2026-02-28</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://firexengenharia.com.br/avcb-montes-claros</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://firexengenharia.com.br/alvara-corpo-de-bombeiros</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://firexengenharia.com.br/renovar-avcb-montes-claros</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://firexengenharia.com.br/projeto-tecnico-incendio</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Blog Articles -->
+  <url><loc>https://firexengenharia.com.br/blog/como-renovar-avcb-montes-claros</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://firexengenharia.com.br/blog/diferenca-avcb-clcb-alvara</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://firexengenharia.com.br/blog/avcb-vencido-consequencias</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://firexengenharia.com.br/blog/erros-reprovacao-corpo-de-bombeiros</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://firexengenharia.com.br/blog/extintores-de-incendio-tipos-e-usos</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://firexengenharia.com.br/blog/sinalizacao-emergencia-normas</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://firexengenharia.com.br/blog/hidrante-e-mangueira-manutencao</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://firexengenharia.com.br/blog/documentos-necessarios-regularizacao</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://firexengenharia.com.br/blog/projeto-tecnico-ppci-industrial</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://firexengenharia.com.br/blog/laudo-de-estanqueidade-gas-avcb</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://firexengenharia.com.br/blog/treinamento-brigada-incendio-montes-claros</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://firexengenharia.com.br/blog/responsabilidade-sindico-incendio</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Legal -->
+  <url><loc>https://firexengenharia.com.br/privacidade</loc><lastmod>2026-02-28</lastmod><priority>0.3</priority></url>
+  <url><loc>https://firexengenharia.com.br/termos</loc><lastmod>2026-02-28</lastmod><priority>0.3</priority></url>
+
+</urlset>

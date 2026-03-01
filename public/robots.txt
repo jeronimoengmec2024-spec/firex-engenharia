@@ -1,0 +1,16 @@
+# FIREX Engenharia - robots.txt
+# Configurado para Máxima Indexação SEO
+
+User-agent: *
+Allow: /
+
+# Permitir acesso explícito ao Blog
+Allow: /blog/
+
+# Arquivo Sitemap
+Sitemap: https://firexengenharia.com.br/sitemap.xml
+
+# Não indexar arquivos de build internos
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /.git/
