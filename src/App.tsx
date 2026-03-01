@@ -308,12 +308,12 @@ const Hero = () => (
         <div className="flex flex-col sm:flex-row gap-8">
           <button
             onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-            className="group flex items-center gap-6 px-12 py-6 bg-brand-red text-white text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-brand-orange transition-all duration-700 glow-subtle"
+            className="group flex items-center gap-6 px-12 py-6 bg-brand-red text-white text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-brand-ember transition-all duration-700 shadow-xl shadow-brand-red/10"
           >
             Solicitar Análise Técnica
             <ArrowRight className="w-5 h-5 group-hover:translate-x-3 transition-transform" />
           </button>
-          <button className="px-12 py-6 border border-white/10 text-white text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-white/5 transition-all duration-500">
+          <button className="btn-outline px-12 py-6 text-[11px] uppercase tracking-[0.3em] font-bold">
             Nossa Expertise
           </button>
         </div>
@@ -1316,13 +1316,13 @@ const InlineCTA = () => (
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <button
           onClick={() => window.open('https://wa.me/5538984056240?text=Olá! Gostaria de um diagnóstico gratuito do meu AVCB.', '_blank')}
-          className="btn-fire px-10 py-4 text-white text-sm uppercase tracking-widest font-bold rounded-none"
+          className="btn-fire px-10 py-5 text-white text-[10px] uppercase tracking-[0.3em] font-bold rounded-none"
         >
           🔥 Diagnóstico Gratuito via WhatsApp
         </button>
         <a
           href="tel:+5538984056240"
-          className="px-10 py-4 border border-white/10 text-zinc-400 hover:text-white hover:border-white/30 text-sm uppercase tracking-widest font-bold transition-all duration-300"
+          className="btn-outline px-10 py-5 text-[10px] uppercase tracking-[0.3em] font-bold flex items-center justify-center transition-all duration-300"
         >
           (38) 98405-6240
         </a>
