@@ -330,9 +330,9 @@ const RiskAssessmentTool = () => {
   ];
 
   const areas = [
-    { id: 'small', label: 'Até 200mÂ²', desc: 'Geralmente isento ou PTS' },
-    { id: 'medium', label: '200mÂ² a 750mÂ²', desc: 'Projeto Técnico Simplificado' },
-    { id: 'large', label: 'Acima de 750mÂ²', desc: 'Projeto Técnico Completo' }
+    { id: 'small', label: 'Até 200m²', desc: 'Geralmente isento ou PTS' },
+    { id: 'medium', label: '200m² a 750m²', desc: 'Projeto Técnico Simplificado' },
+    { id: 'large', label: 'Acima de 750m²', desc: 'Projeto Técnico Completo' }
   ];
 
   const heights = [
@@ -349,7 +349,7 @@ const RiskAssessmentTool = () => {
       return "Enquadramento provável em Projeto Técnico Simplificado (PTS). Exige extintores, sinalização e iluminação de emergência. A altura média pode exigir brigada de incêndio.";
     }
     if (data.area === 'large' || data.height === 'high') {
-      return "Enquadramento em Projeto Técnico (PT). Exige sistemas complexos como hidrantes, alarmes e possivelmente sprinklers devido Ã  grande área ou altura elevada.";
+      return "Enquadramento em Projeto Técnico (PT). Exige sistemas complexos como hidrantes, alarmes e possivelmente sprinklers devido à grande área ou altura elevada.";
     }
     return "Enquadramento em Projeto Técnico (PT). Exige sistemas complexos como hidrantes, alarmes e possivelmente sprinklers.";
   };
@@ -530,7 +530,7 @@ const ProcessTimeline = () => {
             </h2>
           </div>
           <p className="text-zinc-500 max-w-sm text-lg font-light leading-relaxed">
-            Um processo estruturado para garantir que sua edificação transite do risco Ã  certificação total com agilidade técnica.
+            Um processo estruturado para garantir que sua edificação transite do risco à certificação total com agilidade técnica.
           </p>
         </div>
 
