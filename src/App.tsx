@@ -36,7 +36,8 @@ import {
   Search,
   PenTool,
   Send,
-  Star
+  Star,
+  MessageCircle
 } from 'lucide-react';
 
 import { segmentsData } from './data/segments';
