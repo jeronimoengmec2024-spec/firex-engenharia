@@ -238,15 +238,16 @@ const FloatingElement = ({ delay, className }: any) => (
 );
 
 const Hero = () => (
-  <section className="relative min-h-screen flex items-center overflow-hidden bg-white tech-grid-subtle">
-    <div className="absolute inset-0 z-0">
-      <img
-        src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1920&h=1080&grayscale=true"
-        className="w-full h-full object-cover opacity-30 grayscale"
-        alt="Fire Engineering Background"
-      />
-      <div className="industrial-overlay" />
-    </div>
+  <section
+    className="relative min-h-screen flex items-center overflow-hidden bg-white tech-grid-subtle"
+    style={{
+      backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1920&h=1080&grayscale=true")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }}
+  >
+    <div className="absolute inset-0 z-0 bg-white/30 backdrop-blur-[2px]" />
+    <div className="industrial-overlay" />
 
     {/* Floating Elements */}
     <FloatingElement delay={0} className="top-1/4 left-10" />
@@ -1565,7 +1566,7 @@ const FAQ = () => (
 );
 
 const Footer = () => (
-  <footer className="bg-white pt-40 pb-16 border-t border-slate-200 relative overflow-hidden">
+  <footer className="bg-white pt-40 pb-10 border-t border-slate-200 relative overflow-hidden">
     <div className="absolute top-0 right-0 p-20 opacity-[0.30] pointer-events-none select-none overflow-hidden">
       <img
         src="/images/fire_safety_technical_project.png"
