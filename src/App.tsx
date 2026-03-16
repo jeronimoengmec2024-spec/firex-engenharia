@@ -728,26 +728,26 @@ const ExecutionServices = () => (
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="lg:w-1/2 order-2 lg:order-1"
+          className="lg:w-1/2 order-2 lg:order-1 w-full"
         >
-          <div className="grid grid-cols-2 gap-6">
-            <div className="space-y-6">
-              <div className="aspect-square rounded-2xl overflow-hidden premium-border">
-                <img loading="lazy" src="https://i.imgur.com/9JWs6YJ.jpeg" alt="Equipamento Técnico" className="w-full h-full object-cover opacity-50 hover:opacity-100 transition-opacity duration-700" referrerPolicy="no-referrer" />
+          <div className="flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-6">
+            <div className="flex flex-col gap-4 md:space-y-6">
+              <div className="w-full h-[220px] md:aspect-square rounded-[12px] md:rounded-2xl overflow-hidden premium-border">
+                <img loading="lazy" src="https://i.imgur.com/9JWs6YJ.jpeg" alt="Equipamento Técnico" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
               </div>
-              <div className="aspect-square rounded-2xl overflow-hidden premium-border">
-                <img loading="lazy" src="https://i.imgur.com/6iESExa.jpeg" alt="Execução Técnica" className="w-full h-full object-cover opacity-50 hover:opacity-100 transition-opacity duration-700" referrerPolicy="no-referrer" />
+              <div className="w-full h-[220px] md:aspect-square rounded-[12px] md:rounded-2xl overflow-hidden premium-border">
+                <img loading="lazy" src="https://i.imgur.com/6iESExa.jpeg" alt="Execução Técnica" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
               </div>
-              <div className="aspect-[3/4] rounded-2xl overflow-hidden premium-border">
-                <img loading="lazy" src="https://i.imgur.com/fN5aDW6.jpeg" alt="Trabalho em Campo" className="w-full h-full object-cover opacity-50 hover:opacity-100 transition-opacity duration-700" referrerPolicy="no-referrer" />
+              <div className="w-full h-[220px] md:aspect-[3/4] rounded-[12px] md:rounded-2xl overflow-hidden premium-border">
+                <img loading="lazy" src="https://i.imgur.com/fN5aDW6.jpeg" alt="Trabalho em Campo" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
               </div>
             </div>
-            <div className="space-y-6 pt-12">
-              <div className="aspect-square rounded-2xl overflow-hidden premium-border">
-                <img loading="lazy" src="https://i.imgur.com/wUu7acL.jpeg" alt="Instalação Profissional" className="w-full h-full object-cover opacity-50 hover:opacity-100 transition-opacity duration-700" referrerPolicy="no-referrer" />
+            <div className="flex flex-col gap-4 md:space-y-6 md:pt-12">
+              <div className="w-full h-[220px] md:aspect-square rounded-[12px] md:rounded-2xl overflow-hidden premium-border">
+                <img loading="lazy" src="https://i.imgur.com/wUu7acL.jpeg" alt="Instalação Profissional" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
               </div>
-              <div className="aspect-[3/4] rounded-2xl overflow-hidden premium-border">
-                <img loading="lazy" src="https://i.imgur.com/bB3u0aO.jpeg" alt="Sinalização de Emergência" className="w-full h-full object-cover scale-90 opacity-50 hover:opacity-100 transition-all duration-700" referrerPolicy="no-referrer" />
+              <div className="w-full h-[220px] md:aspect-[3/4] rounded-[12px] md:rounded-2xl overflow-hidden premium-border">
+                <img loading="lazy" src="https://i.imgur.com/bB3u0aO.jpeg" alt="Sinalização de Emergência" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
               </div>
             </div>
           </div>
@@ -1012,7 +1012,7 @@ const AVCBRenewal = () => (
             className="w-full h-full object-cover opacity-60 grayscale"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
-          <div className="absolute bottom-12 left-12 right-12 p-10 glass-surface rounded-2xl premium-border">
+          <div className="absolute bottom-12 left-12 right-12 p-10 glass-surface rounded-2xl premium-border z-[1]">
             <div className="flex items-center gap-4 mb-4">
               <AlertTriangle className="text-brand-red w-6 h-6" />
               <span className="text-slate-900 font-bold">Atenção Síndicos e Gestores</span>
@@ -1791,22 +1791,25 @@ export default function App() {
   const [selectedSegment, setSelectedSegment] = useState<any>(null);
 
   useEffect(() => {
-    // 1. Color Reveal for Cards/Blog
-    const cardImages = document.querySelectorAll('[class*="card"] img, [class*="blog"] img, [class*="post"] img, .segment-img');
+    // 1. Global Scroll-Triggered Color Reveal
+    const allImages = document.querySelectorAll('img');
+    allImages.forEach(img => {
+      const el = img as HTMLElement;
+      el.style.filter = 'grayscale(100%)';
+      el.style.transition = 'filter 1s ease';
+    });
+
     const colorObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const target = entry.target as HTMLElement;
           target.style.filter = 'grayscale(0%)';
-          target.style.transition = 'filter 0.8s ease';
+          colorObserver.unobserve(target);
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.25 });
 
-    cardImages.forEach(img => {
-      (img as HTMLElement).style.filter = 'grayscale(100%)';
-      colorObserver.observe(img);
-    });
+    allImages.forEach(img => colorObserver.observe(img));
 
     // 2. Background Entrance Animation
     const bgSections = document.querySelectorAll('section[data-bg-section]');
