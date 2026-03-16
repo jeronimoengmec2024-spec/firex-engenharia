@@ -36,8 +36,7 @@ import {
   Search,
   PenTool,
   Send,
-  Star,
-  MessageCircle
+  Star
 } from 'lucide-react';
 
 import { segmentsData } from './data/segments';
@@ -64,14 +63,6 @@ const SEOData = () => (
   </Helmet>
 );
 
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
-};
-
 // --- UI Components ---
 
 const Navbar = () => {
@@ -94,7 +85,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 w-full z-[100] transition-all duration-700 ${scrolled ? 'bg-brand-dark/95 backdrop-blur-md py-4' : 'bg-transparent py-8'}`}>
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-700 ${scrolled ? 'bg-white/95 backdrop-blur-md py-4' : 'bg-transparent py-8'}`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex justify-between items-center">
           <Link
@@ -103,41 +94,34 @@ const Navbar = () => {
             className="flex items-center gap-4 group cursor-pointer"
           >
             <div className="flex flex-col">
-              <span className="font-display font-bold text-3xl tracking-tight text-white leading-none group-hover:text-brand-gold transition-colors">
-                <span className="text-brand-orange">FIRE</span>
+              <span className="font-display font-bold text-3xl tracking-tight text-slate-900 leading-none group-hover:text-brand-red transition-colors">
+                <span className="text-brand-red">FIRE</span>
                 <span className="text-brand-red">X</span>
               </span>
-              <span className="tech-label text-[7px] mt-1 opacity-70">Engenharia de Combate a Incêndio</span>
+              <span className="tech-label text-[10px] mt-1 opacity-70">Engenharia de Combate a Incêndio</span>
             </div>
           </Link>
 
           <div className="hidden md:flex items-center gap-12">
             {navLinks.map((link) => (
-              <button
+              <a
                 key={link.name}
-                onClick={() => {
-                  if (window.location.pathname === '/') {
-                    const el = document.querySelector(link.href);
-                    el?.scrollIntoView({ behavior: 'smooth' });
-                  } else {
-                    window.location.href = '/' + link.href;
-                  }
-                }}
-                className="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-500 hover:text-white transition-colors"
+                href={link.href}
+                className="text-xs uppercase tracking-[0.2em] font-bold text-slate-800 hover:text-slate-900 transition-colors"
               >
                 {link.name}
-              </button>
+              </a>
             ))}
             <button
               onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-              className="btn-fire px-8 py-3 text-white text-[10px] uppercase tracking-widest font-bold"
+              className="btn-fire px-8 py-3 text-white text-xs uppercase tracking-widest font-bold"
             >
               🔥 Contato Direto
             </button>
           </div>
 
           <button
-            className="md:hidden text-white p-2"
+            className="md:hidden text-slate-900 p-2"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={isOpen}
@@ -153,15 +137,15 @@ const Navbar = () => {
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="fixed inset-0 z-[110] bg-brand-dark md:hidden flex flex-col"
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed inset-0 z-[60] bg-white md:hidden flex flex-col"
           >
-            <div className="flex justify-between items-center p-8 border-b border-white/5">
-              <span className="font-display font-bold text-2xl tracking-tight text-white leading-none">
-                <span className="text-brand-orange">FIRE</span>
+            <div className="flex justify-between items-center p-8 border-b border-slate-200">
+              <span className="font-display font-bold text-2xl tracking-tight text-slate-900 leading-none">
+                <span className="text-brand-red">FIRE</span>
                 <span className="text-brand-red">X</span>
               </span>
-              <button className="text-white p-2" onClick={() => setIsOpen(false)}>
+              <button className="text-slate-900 p-2" onClick={() => setIsOpen(false)}>
                 <X className="w-8 h-8" />
               </button>
             </div>
@@ -169,24 +153,17 @@ const Navbar = () => {
             <div className="flex-1 overflow-y-auto p-8 flex flex-col justify-center">
               <div className="space-y-8">
                 {navLinks.map((link, i) => (
-                  <motion.button
+                  <motion.a
                     key={link.name}
+                    href={link.href}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    className="block text-4xl font-bold text-white hover:text-brand-gold transition-colors text-left"
-                    onClick={() => {
-                      setIsOpen(false);
-                      if (window.location.pathname === '/') {
-                        const el = document.querySelector(link.href);
-                        el?.scrollIntoView({ behavior: 'smooth' });
-                      } else {
-                        window.location.href = '/' + link.href;
-                      }
-                    }}
+                    className="block text-4xl font-bold text-slate-900 hover:text-brand-red transition-colors"
+                    onClick={() => setIsOpen(false)}
                   >
                     {link.name}
-                  </motion.button>
+                  </motion.a>
                 ))}
               </div>
 
@@ -207,7 +184,7 @@ const Navbar = () => {
                     className="flex flex-col items-center justify-center gap-3 p-6 bg-brand-red/10 border border-brand-red/20 rounded-xl text-white"
                   >
                     <Phone className="w-6 h-6 text-brand-red" />
-                    <span className="text-[10px] uppercase tracking-widest font-bold">WhatsApp</span>
+                    <span className="text-xs uppercase tracking-widest font-bold">WhatsApp</span>
                   </motion.button>
 
                   <motion.button
@@ -215,10 +192,10 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
                     onClick={() => window.location.href = 'mailto:contato@firex.com.br'}
-                    className="flex flex-col items-center justify-center gap-3 p-6 bg-white/5 border border-white/10 rounded-xl text-white"
+                    className="flex flex-col items-center justify-center gap-3 p-6 bg-white/5 border border-white/10 rounded-xl text-slate-900"
                   >
-                    <Mail className="w-6 h-6 text-brand-gold" />
-                    <span className="text-[10px] uppercase tracking-widest font-bold">E-mail</span>
+                    <Mail className="w-6 h-6 text-brand-red" />
+                    <span className="text-xs uppercase tracking-widest font-bold">E-mail</span>
                   </motion.button>
                 </div>
 
@@ -227,7 +204,7 @@ const Navbar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 }}
                   onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-                  className="w-full bg-brand-red text-white py-6 rounded-xl text-xs uppercase tracking-[0.3em] font-bold shadow-lg shadow-brand-red/20"
+                  className="w-full bg-brand-red text-white py-6 rounded-xl text-base uppercase tracking-[0.3em] font-bold shadow-lg shadow-brand-red/20"
                 >
                   Solicitar Análise Técnica
                 </motion.button>
@@ -235,7 +212,7 @@ const Navbar = () => {
             </div>
 
             {/* Technical Grid Background for Mobile Menu */}
-            <div className="absolute inset-0 -z-10 opacity-[0.03] pointer-events-none tech-grid-subtle" />
+            <div className="absolute inset-0 -z-10 opacity-[0.20] pointer-events-none tech-grid-subtle" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -261,7 +238,7 @@ const FloatingElement = ({ delay, className }: any) => (
 );
 
 const Hero = () => (
-  <section className="relative min-h-screen flex items-center overflow-hidden bg-brand-dark">
+  <section className="relative min-h-screen flex items-center overflow-hidden bg-white tech-grid-subtle">
     <div className="absolute inset-0 z-0">
       <img
         src="https://images.unsplash.com/photo-1583907608920-9418311a7f6c?auto=format&fit=crop&q=80&w=2000"
@@ -278,7 +255,7 @@ const Hero = () => (
     <FloatingElement delay={1} className="top-1/2 right-1/4" />
 
     {/* Background Decorative Elements */}
-    <div className="absolute top-0 left-0 w-full h-full opacity-[0.15] pointer-events-none z-0">
+    <div className="absolute top-0 left-0 w-full h-full opacity-[0.30] pointer-events-none z-0">
       <img
         src="/images/fire_extinguisher_wall.png"
         alt="Equipamentos PPCI Elegantes"
@@ -302,19 +279,19 @@ const Hero = () => (
         <h1 className="hero-title mb-10 text-gradient">
           Engenharia de precisão <br /> e Projetos contra <br /> Incêndio (PPCI).
         </h1>
-        <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mb-14 leading-relaxed font-light">
+        <p className="text-lg md:text-xl text-slate-900 max-w-2xl mb-14 leading-relaxed font-normal">
           Especialistas em AVCB, Projetos Técnicos e regularização normativa de alto padrão.
           Segurança técnica e conformidade jurídica para o setor industrial e corporativo.
         </p>
         <div className="flex flex-col sm:flex-row gap-8">
           <button
             onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-            className="group flex items-center gap-6 px-12 py-6 bg-brand-red text-white text-[11px] uppercase tracking-[0.3em] font-bold hover:bg-brand-ember transition-all duration-700 shadow-xl shadow-brand-red/10"
+            className="group flex items-center gap-6 px-12 py-6 bg-brand-red text-white text-sm uppercase tracking-[0.3em] font-bold hover:bg-brand-ember transition-all duration-700 glow-subtle"
           >
             Solicitar Análise Técnica
             <ArrowRight className="w-5 h-5 group-hover:translate-x-3 transition-transform" />
           </button>
-          <button className="btn-outline px-12 py-6 text-[11px] uppercase tracking-[0.3em] font-bold">
+          <button className="px-12 py-6 border border-white/10 text-slate-900 text-sm uppercase tracking-[0.3em] font-bold hover:bg-white/5 transition-all duration-500">
             Nossa Expertise
           </button>
         </div>
@@ -324,16 +301,16 @@ const Hero = () => (
 );
 
 const Partners = () => (
-  <section className="py-20 bg-brand-dark overflow-hidden">
+  <section className="py-20 bg-white overflow-hidden">
     <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-12">
-      <span className="text-brand-gold text-[10px] uppercase tracking-[0.4em] font-bold text-center block">Empresas que Confiam</span>
+      <span className="text-brand-red text-xs uppercase tracking-[0.4em] font-bold text-center block">Empresas que Confiam</span>
     </div>
     <div className="flex gap-12 animate-marquee whitespace-nowrap">
       {[
         "VALE", "GERDAU", "PETROBRAS", "AMBEV", "FIAT", "NESTLÉ", "WEG", "SUZANO", "VOTORANTIM", "BRF"
       ].map((partner, i) => (
         <div key={i} className="flex items-center gap-12 opacity-30 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500 cursor-pointer">
-          <div className="text-2xl font-bold text-white font-display tracking-tighter">{partner}</div>
+          <div className="text-2xl font-bold text-slate-900 font-display tracking-tighter">{partner}</div>
           <div className="w-2 h-2 bg-brand-red rounded-full" />
         </div>
       ))}
@@ -353,9 +330,9 @@ const RiskAssessmentTool = () => {
   ];
 
   const areas = [
-    { id: 'small', label: 'Até 200m²', desc: 'Geralmente isento ou PTS' },
-    { id: 'medium', label: '200m² a 750m²', desc: 'Projeto Técnico Simplificado' },
-    { id: 'large', label: 'Acima de 750m²', desc: 'Projeto Técnico Completo' }
+    { id: 'small', label: 'Até 200mÂ²', desc: 'Geralmente isento ou PTS' },
+    { id: 'medium', label: '200mÂ² a 750mÂ²', desc: 'Projeto Técnico Simplificado' },
+    { id: 'large', label: 'Acima de 750mÂ²', desc: 'Projeto Técnico Completo' }
   ];
 
   const heights = [
@@ -372,39 +349,39 @@ const RiskAssessmentTool = () => {
       return "Enquadramento provável em Projeto Técnico Simplificado (PTS). Exige extintores, sinalização e iluminação de emergência. A altura média pode exigir brigada de incêndio.";
     }
     if (data.area === 'large' || data.height === 'high') {
-      return "Enquadramento em Projeto Técnico (PT). Exige sistemas complexos como hidrantes, alarmes e possivelmente sprinklers devido à grande área ou altura elevada.";
+      return "Enquadramento em Projeto Técnico (PT). Exige sistemas complexos como hidrantes, alarmes e possivelmente sprinklers devido Ã  grande área ou altura elevada.";
     }
     return "Enquadramento em Projeto Técnico (PT). Exige sistemas complexos como hidrantes, alarmes e possivelmente sprinklers.";
   };
 
   return (
-    <section className="py-40 bg-brand-dark relative overflow-hidden">
+    <section className="py-40 bg-white relative overflow-hidden tech-grid-subtle">
       <div className="max-w-4xl mx-auto px-6 lg:px-12 relative z-10">
         <div className="text-center mb-20">
-          <span className="text-brand-gold text-[10px] uppercase tracking-[0.4em] font-bold mb-6 block">Ferramenta de Diagnóstico</span>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">Simulador de AVCB.</h2>
-          <p className="text-zinc-500 font-light">Descubra o provável enquadramento da sua edificação em poucos cliques.</p>
+          <span className="text-brand-red text-xs uppercase tracking-[0.4em] font-bold mb-6 block">Ferramenta de Diagnóstico</span>
+          <h2 className="text-4xl md:text-6xl font-bold text-gradient mb-8">Simulador de AVCB.</h2>
+          <p className="text-slate-800 font-normal">Descubra o provável enquadramento da sua edificação em poucos cliques.</p>
         </div>
 
         <div className="glass-surface p-12 rounded-3xl premium-border relative overflow-hidden">
           {/* Subtle Background Image */}
-          <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
+          <div className="absolute inset-0 z-0 opacity-[0.20] pointer-events-none">
             <img loading="lazy" src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800&h=800&grayscale=true" alt="" className="w-full h-full object-cover" />
           </div>
 
           <div className="relative z-10">
             {step === 1 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h3 className="text-xl font-bold text-white mb-8 text-center">Qual o tipo da sua edificação?</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-8 text-center">Qual o tipo da sua edificação?</h3>
                 <div className="grid grid-cols-2 gap-6">
                   {types.map((t) => (
                     <button
                       key={t.id}
                       onClick={() => { setData({ ...data, type: t.id }); setStep(2); }}
-                      className="p-8 border border-white/5 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group text-center"
+                      className="p-8 border border-slate-200 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group text-center"
                     >
-                      <t.icon className="w-8 h-8 text-brand-gold mx-auto mb-4 group-hover:text-brand-red transition-colors" />
-                      <span className="text-xs uppercase tracking-widest font-bold text-zinc-400 group-hover:text-white">{t.label}</span>
+                      <t.icon className="w-8 h-8 text-brand-red mx-auto mb-4 group-hover:text-brand-red transition-colors" />
+                      <span className="text-base uppercase tracking-widest font-bold text-slate-900 group-hover:text-slate-900">{t.label}</span>
                     </button>
                   ))}
                 </div>
@@ -413,45 +390,45 @@ const RiskAssessmentTool = () => {
 
             {step === 2 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h3 className="text-xl font-bold text-white mb-8 text-center">Qual a área total construída?</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-8 text-center">Qual a área total construída?</h3>
                 <div className="space-y-4">
                   {areas.map((a) => (
                     <button
                       key={a.id}
                       onClick={() => { setData({ ...data, area: a.id }); setStep(3); }}
-                      className="w-full p-8 border border-white/5 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group flex justify-between items-center text-left"
+                      className="w-full p-8 border border-slate-200 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group flex justify-between items-center text-left"
                     >
                       <div>
-                        <div className="text-white font-bold mb-1">{a.label}</div>
-                        <div className="text-xs text-zinc-500 uppercase tracking-widest">{a.desc}</div>
+                        <div className="text-slate-900 font-bold mb-1">{a.label}</div>
+                        <div className="text-base text-slate-800 uppercase tracking-widest">{a.desc}</div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-brand-gold group-hover:text-brand-red group-hover:translate-x-2 transition-all" />
+                      <ArrowRight className="w-5 h-5 text-brand-red group-hover:text-brand-red group-hover:translate-x-2 transition-all" />
                     </button>
                   ))}
                 </div>
-                <button onClick={() => setStep(1)} className="mt-8 text-[10px] uppercase tracking-widest text-zinc-600 hover:text-white transition-colors">â† Voltar</button>
+                <button onClick={() => setStep(1)} className="mt-8 text-xs uppercase tracking-widest text-slate-900 hover:text-slate-900 transition-colors">â† Voltar</button>
               </motion.div>
             )}
 
             {step === 3 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h3 className="text-xl font-bold text-white mb-8 text-center">Qual a altura da edificação?</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-8 text-center">Qual a altura da edificação?</h3>
                 <div className="space-y-4">
                   {heights.map((h) => (
                     <button
                       key={h.id}
                       onClick={() => { setData({ ...data, height: h.id }); setStep(4); }}
-                      className="w-full p-8 border border-white/5 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group flex justify-between items-center text-left"
+                      className="w-full p-8 border border-slate-200 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group flex justify-between items-center text-left"
                     >
                       <div>
-                        <div className="text-white font-bold mb-1">{h.label}</div>
-                        <div className="text-xs text-zinc-500 uppercase tracking-widest">{h.desc}</div>
+                        <div className="text-slate-900 font-bold mb-1">{h.label}</div>
+                        <div className="text-base text-slate-800 uppercase tracking-widest">{h.desc}</div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-brand-gold group-hover:text-brand-red group-hover:translate-x-2 transition-all" />
+                      <ArrowRight className="w-5 h-5 text-brand-red group-hover:text-brand-red group-hover:translate-x-2 transition-all" />
                     </button>
                   ))}
                 </div>
-                <button onClick={() => setStep(2)} className="mt-8 text-[10px] uppercase tracking-widest text-zinc-600 hover:text-white transition-colors">â† Voltar</button>
+                <button onClick={() => setStep(2)} className="mt-8 text-xs uppercase tracking-widest text-slate-900 hover:text-slate-900 transition-colors">â† Voltar</button>
               </motion.div>
             )}
 
@@ -460,18 +437,18 @@ const RiskAssessmentTool = () => {
                 <div className="w-20 h-20 bg-brand-red/20 rounded-full flex items-center justify-center mx-auto mb-8">
                   <ShieldCheck className="w-10 h-10 text-brand-red" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-6">Resultado Preliminar</h3>
-                <p className="text-zinc-400 text-lg font-light leading-relaxed mb-12">
+                <h3 className="text-2xl font-bold text-slate-900 mb-6">Resultado Preliminar</h3>
+                <p className="text-slate-900 text-lg font-normal leading-relaxed mb-12">
                   {getResult()}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
                   <button
                     onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-                    className="px-12 py-4 bg-brand-red text-white text-[10px] uppercase tracking-widest font-bold hover:bg-brand-orange transition-all"
+                    className="px-12 py-4 bg-brand-red text-white text-xs uppercase tracking-widest font-bold hover:bg-brand-ember transition-all"
                   >
                     Validar com Engenheiro
                   </button>
-                  <button onClick={() => setStep(1)} className="px-12 py-4 border border-white/10 text-white text-[10px] uppercase tracking-widest font-bold hover:bg-white/5 transition-all">
+                  <button onClick={() => setStep(1)} className="px-12 py-4 border border-white/10 text-slate-900 text-xs uppercase tracking-widest font-bold hover:bg-white/5 transition-all">
                     Reiniciar
                   </button>
                 </div>
@@ -517,7 +494,7 @@ const ProcessTimeline = () => {
   ];
 
   return (
-    <section className="py-40 bg-brand-dark relative overflow-hidden">
+    <section className="py-40 bg-white relative overflow-hidden tech-grid-subtle">
       {/* Background Image with Parallax Effect */}
       <motion.div
         initial={{ scale: 1.1, opacity: 0 }}
@@ -536,7 +513,7 @@ const ProcessTimeline = () => {
       </motion.div>
 
       {/* Background Decorative Technical Visual: Blueprint */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-[0.12] pointer-events-none z-0 overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-full opacity-[0.20] pointer-events-none z-0 overflow-hidden">
         <img
           src="/images/fire_safety_technical_project.png"
           alt="Desenho Técnico PPCI - Autocad Blueprint"
@@ -547,17 +524,17 @@ const ProcessTimeline = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         <div className="flex flex-col lg:flex-row justify-between items-end mb-32 gap-12">
           <div className="max-w-2xl">
-            <span className="text-brand-gold text-[10px] uppercase tracking-[0.4em] font-bold mb-6 block">Metodologia de Aprovação</span>
-            <h2 className="text-5xl md:text-7xl font-bold text-white leading-[1.0]">
-              Jornada da <br /> <span className="text-brand-red">Conformidade.</span>
+            <span className="text-brand-red text-xs uppercase tracking-[0.4em] font-bold mb-6 block">Metodologia de Aprovação</span>
+            <h2 className="text-5xl md:text-7xl font-bold text-slate-900 leading-[1.0]">
+              Jornada da <br /> <span className="text-gradient">Conformidade.</span>
             </h2>
           </div>
-          <p className="text-zinc-500 max-w-sm text-lg font-light leading-relaxed">
-            Um processo estruturado para garantir que sua edificação transite do risco à certificação total com agilidade técnica.
+          <p className="text-slate-800 max-w-sm text-lg font-normal leading-relaxed">
+            Um processo estruturado para garantir que sua edificação transite do risco Ã  certificação total com agilidade técnica.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-px bg-white/5 border border-white/5">
+        <div className="grid lg:grid-cols-4 gap-px bg-white/5 border border-slate-200">
           {steps.map((item, i) => (
             <motion.div
               key={i}
@@ -565,29 +542,29 @@ const ProcessTimeline = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.2 }}
               viewport={{ once: true }}
-              className="relative p-12 bg-brand-dark hover:bg-white/[0.02] transition-all duration-700 group overflow-hidden"
+              className="relative p-12 bg-white hover:bg-white/[0.02] transition-all duration-700 group overflow-hidden"
             >
               {/* Step Number Background */}
-              <span className="absolute -bottom-4 -right-4 text-9xl font-bold text-white/[0.02] group-hover:text-white/[0.05] transition-all duration-700 select-none">
+              <span className="absolute -bottom-4 -right-4 text-9xl font-bold text-slate-900/[0.02] group-hover:text-slate-900/[0.05] transition-all duration-700 select-none">
                 {item.step}
               </span>
 
               <div className="relative z-10">
                 <div className={`w-12 h-12 mb-10 flex items-center justify-center border border-white/10 group-hover:border-${item.color}/50 transition-all duration-500`}>
-                  <item.icon className={`w-5 h-5 text-zinc-500 group-hover:text-${item.color === 'brand-red' ? 'brand-red' : 'brand-gold'} transition-colors`} />
+                  <item.icon className={`w-5 h-5 text-slate-800 group-hover:text-${item.color === 'brand-red' ? 'brand-red' : 'brand-gold'} transition-colors`} />
                 </div>
 
-                <h3 className="text-2xl font-bold text-white mb-6 leading-tight group-hover:translate-x-2 transition-transform duration-500">
+                <h3 className="text-2xl font-bold text-slate-900 mb-6 leading-tight group-hover:translate-x-2 transition-transform duration-500">
                   {item.title}
                 </h3>
 
-                <p className="text-zinc-500 text-sm font-light leading-relaxed mb-12">
+                <p className="text-slate-800 text-base font-normal leading-relaxed mb-12">
                   {item.desc}
                 </p>
 
                 <div className="flex items-center gap-4">
                   <div className={`h-px w-8 bg-zinc-800 group-hover:w-16 group-hover:bg-${item.color === 'brand-red' ? 'brand-red' : 'brand-gold'} transition-all duration-700`} />
-                  <span className="text-[8px] uppercase tracking-widest text-zinc-700 group-hover:text-zinc-400 transition-colors">Fase {item.step}</span>
+                  <span className="text-xs uppercase tracking-widest text-zinc-700 group-hover:text-slate-900 transition-colors">Fase {item.step}</span>
                 </div>
               </div>
             </motion.div>
@@ -599,23 +576,23 @@ const ProcessTimeline = () => {
 };
 
 const ServiceItem = ({ icon: Icon, title, desc, features, bgImage }: any) => (
-  <div className="p-16 bg-brand-dark/50 hover:bg-white/[0.02] transition-all duration-700 group flex flex-col h-full relative overflow-hidden border border-white/5">
+  <div className="p-16 bg-white hover:bg-white/[0.02] transition-all duration-700 group flex flex-col h-full relative overflow-hidden border border-slate-200">
     {/* Background Image on Hover */}
-    <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-10 transition-opacity duration-1000">
-      <img loading="lazy" src={bgImage} alt="" className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000" />
+    <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-20 transition-opacity duration-1000">
+      <img loading="lazy" src={bgImage} alt="" className="w-full h-full object-cover scale-110 group-hover:scale-100 grayscale hover:grayscale-0 transition-all duration-1000" />
     </div>
 
     <div className="relative z-10">
-      <div className="w-16 h-16 mb-12 flex items-center justify-center border border-white/10 group-hover:border-brand-gold/50 transition-all duration-700 bg-brand-dark">
-        <Icon className="w-8 h-8 text-brand-gold group-hover:scale-110 transition-all" />
+      <div className="w-16 h-16 mb-12 flex items-center justify-center border border-slate-200 group-hover:border-brand-red/50 transition-all duration-700 bg-slate-50">
+        <Icon className="w-8 h-8 text-brand-red group-hover:scale-110 transition-all" />
       </div>
-      <h3 className="text-3xl font-bold mb-8 text-white leading-tight group-hover:text-brand-gold transition-colors">{title}</h3>
-      <p className="text-zinc-500 text-sm leading-relaxed mb-12 font-light flex-grow">{desc}</p>
+      <h3 className="text-3xl font-bold mb-8 text-slate-900 leading-tight group-hover:text-brand-red transition-colors">{title}</h3>
+      <p className="text-slate-800 text-base leading-relaxed mb-12 font-normal flex-grow">{desc}</p>
       <div className="space-y-4">
         {features.map((f: string, i: number) => (
           <div key={i} className="flex items-center gap-4">
             <div className="w-1.5 h-1.5 bg-brand-red rounded-full" />
-            <span className="text-[10px] text-zinc-400 uppercase tracking-[0.2em] font-bold">{f}</span>
+            <span className="text-xs text-slate-900 uppercase tracking-[0.2em] font-bold">{f}</span>
           </div>
         ))}
       </div>
@@ -632,12 +609,12 @@ const TechnicalParallax = ({ image, title, subtitle }: any) => (
       className="absolute inset-0 z-0"
     >
       <img loading="lazy" src={image} alt="" className="w-full h-full object-cover opacity-20 grayscale" />
-      <div className="absolute inset-0 bg-brand-dark/80" />
+      <div className="absolute inset-0 bg-white/80" />
     </motion.div>
 
     <div className="relative z-10 text-center px-6">
       <span className="tech-label mb-8 block">{subtitle}</span>
-      <h2 className="hero-title text-white">{title}</h2>
+      <h2 className="hero-title text-slate-900">{title}</h2>
     </div>
 
     {/* Technical Lines Overlay */}
@@ -650,7 +627,7 @@ const TechnicalParallax = ({ image, title, subtitle }: any) => (
 );
 
 const Services = () => (
-  <section id="servicos" className="py-40 bg-brand-dark relative overflow-hidden">
+  <section id="servicos" className="py-40 bg-white relative overflow-hidden tech-grid-subtle">
     {/* Background Image with Effect */}
     <motion.div
       initial={{ scale: 1.1, opacity: 0 }}
@@ -664,18 +641,18 @@ const Services = () => (
         className="w-full h-full object-cover grayscale"
         referrerPolicy="no-referrer"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-transparent to-brand-dark" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-brand-dark" />
     </motion.div>
 
     <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
       <div className="flex flex-col lg:flex-row justify-between items-end mb-32 gap-12">
         <div className="max-w-3xl">
           <span className="tech-label mb-6 block">Soluções de Engenharia</span>
-          <h2 className="hero-title">
+          <h2 className="hero-title text-gradient">
             Rigor Técnico. <br /> Aprovação Ágil.
           </h2>
         </div>
-        <p className="text-zinc-500 max-w-md text-lg leading-relaxed font-light">
+        <p className="text-slate-800 max-w-md text-lg leading-relaxed font-normal">
           Desenvolvemos projetos técnicos que equilibram rigor normativo e viabilidade operacional, garantindo aprovação ágil e segurança jurídica total.
         </p>
       </div>
@@ -729,9 +706,9 @@ const Services = () => (
 );
 
 const ExecutionServices = () => (
-  <section id="execucao" className="py-40 bg-brand-dark relative overflow-hidden">
+  <section id="execucao" className="py-40 bg-white relative overflow-hidden tech-grid-subtle">
     {/* Background Decorative Technical Visual: Hydrant Network */}
-    <div className="absolute top-0 left-0 w-full h-full opacity-[0.12] pointer-events-none z-0 overflow-hidden">
+    <div className="absolute top-0 left-0 w-full h-full opacity-[0.20] pointer-events-none z-0 overflow-hidden">
       <img
         src="/images/industrial_fire_protection.png"
         alt="Sistema de Hidrantes Industrial"
@@ -778,8 +755,8 @@ const ExecutionServices = () => (
           className="lg:w-1/2 order-1 lg:order-2"
         >
           <span className="tech-label mb-6 block">Mão de Obra Especializada</span>
-          <h2 className="hero-title mb-12">Execução e <br /> Instalação.</h2>
-          <p className="text-zinc-500 text-lg font-light leading-relaxed mb-12">
+          <h2 className="hero-title mb-12 text-gradient">Execução e <br /> Instalação.</h2>
+          <p className="text-slate-800 text-lg font-normal leading-relaxed mb-12">
             Não basta ter um bom projeto; a execução precisa ser impecável. Nossa equipe técnica realiza a instalação completa de todos os sistemas de prevenção e combate a incêndio, garantindo que o que foi projetado funcione perfeitamente na prática.
           </p>
 
@@ -790,13 +767,13 @@ const ExecutionServices = () => (
               { title: "Iluminação e Sinalização", desc: "Implementação de rotas de fuga fotoluminescentes e blocos autônomos de emergência." },
               { title: "Sistemas de Supressão", desc: "Instalação de sprinklers, sistemas de CO2 e agentes limpos para áreas críticas." }
             ].map((item, i) => (
-              <div key={i} className="flex gap-6 p-6 border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-all group">
+              <div key={i} className="flex gap-6 p-6 border border-slate-200 bg-white/[0.01] hover:bg-white/[0.03] transition-all group">
                 <div className="w-10 h-10 rounded-lg bg-brand-red/10 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-red/20 transition-colors">
                   <Wrench className="text-brand-red w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold mb-1">{item.title}</h4>
-                  <p className="text-zinc-500 text-sm font-light">{item.desc}</p>
+                  <h4 className="text-slate-900 font-bold mb-1">{item.title}</h4>
+                  <p className="text-slate-800 text-base font-normal">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -808,9 +785,9 @@ const ExecutionServices = () => (
 );
 
 const MeetTheTeam = () => (
-  <section id="sobre" className="py-40 bg-brand-graphite relative overflow-hidden">
+  <section id="sobre" className="py-40 bg-slate-50 relative overflow-hidden tech-grid-subtle">
     {/* Background Decorative Technical Visual: Engineering Expertise */}
-    <div className="absolute top-0 left-0 w-full h-full opacity-[0.12] pointer-events-none z-0 overflow-hidden">
+    <div className="absolute top-0 left-0 w-full h-full opacity-[0.20] pointer-events-none z-0 overflow-hidden">
       <img
         src="/images/fire_safety_inspection_checklist.png"
         alt="Engenharia de Incêndio de Precisão"
@@ -827,11 +804,11 @@ const MeetTheTeam = () => (
           transition={{ duration: 0.8 }}
         >
           <span className="tech-label mb-6 block">Sobre a FIREX</span>
-          <h2 className="hero-title mb-8">Engenharia <br /> com Responsabilidade.</h2>
-          <p className="text-zinc-500 max-w-xl font-light text-lg leading-relaxed mb-8">
+          <h2 className="hero-title mb-8 text-gradient">Engenharia <br /> com Responsabilidade.</h2>
+          <p className="text-slate-800 max-w-xl font-normal text-lg leading-relaxed mb-8">
             Assinamos tecnicamente (ART - Anotação de Responsabilidade Técnica) por cada renovação de AVCB, projeto técnico de combate a incêndio, execução de projeto técnico, laudo e instalação em Montes Claros e região.
           </p>
-          <p className="text-zinc-500 max-w-xl font-light text-lg leading-relaxed italic border-l-2 border-brand-red pl-6">
+          <p className="text-slate-800 max-w-xl font-normal text-lg leading-relaxed italic border-l-2 border-brand-red pl-6">
             "Não vendemos apenas projetos; garantimos que sua empresa passe pela vistoria do Corpo de Bombeiros sem interdições, multas ou perda de cobertura do seguro empresarial."
           </p>
         </motion.div>
@@ -852,19 +829,19 @@ const MeetTheTeam = () => (
               referrerPolicy="no-referrer"
             />
             <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-brand-graphite)_0%,transparent_40%)]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-60" />
 
             {/* Technical Overlay */}
             <div className="absolute top-6 right-6 border border-white/20 p-4 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              <div className="text-[8px] text-white uppercase tracking-widest font-bold">Registro Profissional</div>
-              <div className="text-[10px] text-brand-gold font-mono">CREA-MG VERIFIED</div>
+              <div className="text-xs text-slate-900 uppercase tracking-widest font-bold">Registro Profissional</div>
+              <div className="text-xs text-brand-red font-mono">CREA-MG VERIFIED</div>
             </div>
           </div>
 
           <div className="text-center lg:text-left">
-            <h3 className="text-4xl font-bold text-white mb-2">Pedro Júnior — Eng. Mec.</h3>
-            <div className="text-brand-gold text-sm uppercase tracking-[0.2em] font-bold mb-1">Responsável Técnico · FIREX</div>
-            <div className="text-zinc-500 text-[10px] uppercase tracking-widest font-medium">CREA-MG Ativo</div>
+            <h3 className="text-4xl font-bold text-slate-900 mb-2">Pedro Júnior — Eng. Mec.</h3>
+            <div className="text-brand-red text-base uppercase tracking-[0.2em] font-bold mb-1">Responsável Técnico · FIREX</div>
+            <div className="text-slate-800 text-xs uppercase tracking-widest font-medium">CREA-MG Ativo</div>
           </div>
         </motion.div>
       </div>
@@ -873,9 +850,9 @@ const MeetTheTeam = () => (
 );
 
 const TerminologyExplanation = () => (
-  <section className="py-40 bg-brand-dark border-y border-white/5 relative overflow-hidden">
+  <section className="py-40 bg-white border-y border-slate-200 relative overflow-hidden tech-grid-subtle">
     {/* Background Decorative Technical Visual: Technical Equipment */}
-    <div className="absolute top-0 left-0 w-full h-full opacity-[0.12] pointer-events-none z-0 overflow-hidden">
+    <div className="absolute top-0 left-0 w-full h-full opacity-[0.20] pointer-events-none z-0 overflow-hidden">
       <img
         src="/images/gas_leak_test_manometer.png"
         alt="Equipamentos Técnicos de Proteção"
@@ -887,8 +864,8 @@ const TerminologyExplanation = () => (
       <div className="grid lg:grid-cols-2 gap-24 items-center">
         <div>
           <span className="tech-label mb-6 block">Dicionário Técnico</span>
-          <h2 className="hero-title mb-12">Entenda as <br /> Diferenças.</h2>
-          <p className="text-zinc-500 text-lg font-light leading-relaxed mb-12">
+          <h2 className="hero-title mb-12 text-gradient">Entenda as <br /> Diferenças.</h2>
+          <p className="text-slate-800 text-lg font-normal leading-relaxed mb-12">
             No universo da segurança contra incêndio, muitos termos são usados de forma intercambiável, mas possuem significados técnicos distintos e fundamentais para o processo de regularização.
           </p>
         </div>
@@ -911,9 +888,9 @@ const TerminologyExplanation = () => (
               meaning: "Auto de Vistoria do Corpo de Bombeiros. É o documento final, emitido após a aprovação do projeto e a vistoria in loco, certificando que os sistemas foram instalados corretamente e estão operantes."
             }
           ].map((item, i) => (
-            <div key={i} className="p-12 bg-brand-dark hover:bg-white/[0.02] transition-all group">
-              <h4 className="text-brand-red font-bold text-xl mb-4 group-hover:text-brand-gold transition-colors">{item.term}</h4>
-              <p className="text-zinc-500 text-sm font-light leading-relaxed">{item.meaning}</p>
+            <div key={i} className="p-12 bg-white hover:bg-white/[0.02] transition-all group">
+              <h4 className="text-brand-red font-bold text-xl mb-4 group-hover:text-brand-red transition-colors">{item.term}</h4>
+              <p className="text-slate-800 text-base font-normal leading-relaxed">{item.meaning}</p>
             </div>
           ))}
         </div>
@@ -923,9 +900,9 @@ const TerminologyExplanation = () => (
 );
 
 const Expertise = () => (
-  <section id="expertise" className="py-40 bg-brand-graphite relative overflow-hidden">
+  <section id="expertise" className="py-40 bg-slate-50 relative overflow-hidden tech-grid-subtle">
     {/* Background Decorative Technical Visual: Normative Context */}
-    <div className="absolute top-0 left-0 w-full h-full opacity-[0.12] pointer-events-none z-0 overflow-hidden">
+    <div className="absolute top-0 left-0 w-full h-full opacity-[0.20] pointer-events-none z-0 overflow-hidden">
       <img
         src="https://images.unsplash.com/photo-1454165833267-0230777507fd?auto=format&fit=crop&q=80&w=1500"
         alt="Consultoria Técnica e Documentação"
@@ -937,10 +914,10 @@ const Expertise = () => (
       <div className="grid xl:grid-cols-2 gap-32 items-center">
         <div>
           <span className="tech-label mb-6 block">Credenciais e Autoridade</span>
-          <h2 className="hero-title mb-12">
+          <h2 className="hero-title mb-12 text-gradient">
             Expertise <br /> Normativa.
           </h2>
-          <p className="text-zinc-500 text-xl mb-16 font-light leading-relaxed max-w-xl">
+          <p className="text-slate-800 text-xl mb-16 font-normal leading-relaxed max-w-xl">
             Nossa atuação é pautada pelo rigor técnico e pela responsabilidade formal.
             Cada projeto é uma peça de engenharia estratégica desenhada para proteger vidas e ativos patrimoniais.
           </p>
@@ -955,8 +932,8 @@ const Expertise = () => (
               <div key={i} className="flex gap-6">
                 <div className="w-px h-16 bg-brand-red" />
                 <div>
-                  <h4 className="text-white font-bold text-lg mb-2">{item.title}</h4>
-                  <p className="text-zinc-600 text-[11px] uppercase tracking-widest font-bold">{item.desc}</p>
+                  <h4 className="text-slate-900 font-bold text-lg mb-2">{item.title}</h4>
+                  <p className="text-slate-900 text-sm uppercase tracking-widest font-bold">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -964,7 +941,7 @@ const Expertise = () => (
         </div>
 
         <div className="glass-surface p-16 rounded-3xl premium-border">
-          <h3 className="text-3xl font-bold text-white mb-12">Diferenciais Estratégicos</h3>
+          <h3 className="text-3xl font-bold text-slate-900 mb-12">Diferenciais Estratégicos</h3>
           <div className="space-y-12">
             {[
               { title: "Engenharia de Valor", desc: "Otimizamos sistemas para reduzir custos de instalação sem comprometer a segurança normativa." },
@@ -972,8 +949,8 @@ const Expertise = () => (
               { title: "Visão Corporativa", desc: "Entendemos o impacto da segurança na operação e nas apólices de seguro da sua empresa." }
             ].map((item, i) => (
               <div key={i} className="group">
-                <h4 className="text-brand-gold font-bold text-lg mb-4 group-hover:text-white transition-colors duration-300">{item.title}</h4>
-                <p className="text-zinc-500 text-base font-light leading-relaxed">{item.desc}</p>
+                <h4 className="text-brand-red font-bold text-lg mb-4 group-hover:text-slate-900 transition-colors duration-300">{item.title}</h4>
+                <p className="text-slate-800 text-base font-normal leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -984,7 +961,7 @@ const Expertise = () => (
 );
 
 const AVCBRenewal = () => (
-  <section id="renovacao" className="py-40 bg-brand-graphite relative overflow-hidden">
+  <section id="renovacao" className="py-40 bg-slate-50 relative overflow-hidden tech-grid-subtle">
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
       <div className="grid lg:grid-cols-2 gap-24 items-center">
         <motion.div
@@ -993,9 +970,9 @@ const AVCBRenewal = () => (
           viewport={{ once: true }}
           className="relative"
         >
-          <span className="text-brand-gold text-[10px] uppercase tracking-[0.4em] font-bold mb-6 block">Continuidade e Segurança</span>
-          <h2 className="text-5xl md:text-7xl font-bold text-white mb-12 leading-tight">Renovação <br /> de AVCB.</h2>
-          <p className="text-zinc-500 text-lg font-light leading-relaxed mb-12">
+          <span className="text-brand-red text-xs uppercase tracking-[0.4em] font-bold mb-6 block">Continuidade e Segurança</span>
+          <h2 className="text-5xl md:text-7xl font-bold text-gradient mb-12 leading-tight">Renovação <br /> de AVCB.</h2>
+          <p className="text-slate-800 text-lg font-normal leading-relaxed mb-12">
             O AVCB não é vitalício. Sua validade varia de 1 a 5 anos dependendo da ocupação e do risco. Operar com o documento vencido expõe sua empresa a multas pesadas, interdições e, principalmente, Ã  perda da cobertura do seguro patrimonial.
           </p>
 
@@ -1010,8 +987,8 @@ const AVCBRenewal = () => (
                   <Clock className="text-brand-red w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-lg mb-2">{item.title}</h4>
-                  <p className="text-zinc-500 text-sm font-light">{item.desc}</p>
+                  <h4 className="text-slate-900 font-bold text-lg mb-2">{item.title}</h4>
+                  <p className="text-slate-800 text-base font-normal">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -1029,13 +1006,13 @@ const AVCBRenewal = () => (
             alt="Risco e Alerta de AVCB Vencido"
             className="w-full h-full object-cover opacity-60 grayscale"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
           <div className="absolute bottom-12 left-12 right-12 p-10 glass-surface rounded-2xl premium-border">
             <div className="flex items-center gap-4 mb-4">
               <AlertTriangle className="text-brand-red w-6 h-6" />
-              <span className="text-white font-bold">Atenção Síndicos e Gestores</span>
+              <span className="text-slate-900 font-bold">Atenção Síndicos e Gestores</span>
             </div>
-            <p className="text-zinc-400 text-sm font-light">
+            <p className="text-slate-900 text-base font-normal">
               Não deixe para a última hora. A renovação exige tempo para adequações e vistorias. Solicite seu diagnóstico gratuito agora.
             </p>
           </div>
@@ -1052,7 +1029,7 @@ const blogPosts = [
   {
     slug: '/blog/como-renovar-avcb-montes-claros',
     tag: 'Guia Completo',
-    tagColor: 'text-brand-orange',
+    tagColor: 'text-brand-red',
     title: 'Como renovar AVCB em Montes Claros: Passo a Passo',
     desc: 'Guia definitivo para renovar seu Auto de Vistoria (AVCB) sem complicações junto ao CBMMG.',
     readTime: '4 min',
@@ -1061,7 +1038,7 @@ const blogPosts = [
   {
     slug: '/blog/diferenca-avcb-clcb-alvara',
     tag: 'Técnico',
-    tagColor: 'text-brand-gold',
+    tagColor: 'text-brand-red',
     title: 'AVCB, CLCB ou Alvará: Qual sua Edificação Precisa?',
     desc: 'Entenda a diferença técnica e legal entre as licenças do Corpo de Bombeiros de MG.',
     readTime: '3 min',
@@ -1079,7 +1056,7 @@ const blogPosts = [
   {
     slug: '/blog/erros-reprovacao-corpo-de-bombeiros',
     tag: 'Vistoria',
-    tagColor: 'text-brand-orange',
+    tagColor: 'text-brand-red',
     title: 'Os 5 Erros que Reprovam na Vistoria dos Bombeiros',
     desc: 'Lista técnica dos erros mais comuns que garantem a reprovação — e como a FIREX evita todos.',
     readTime: '4 min',
@@ -1088,7 +1065,7 @@ const blogPosts = [
   {
     slug: '/blog/extintores-de-incendio-tipos-e-usos',
     tag: 'Equipamentos',
-    tagColor: 'text-brand-orange',
+    tagColor: 'text-brand-red',
     title: 'Tipos de Extintores de Incêndio e Quando Usar Cada Um',
     desc: 'Extintor de água, CO², pó químico ou espuma? Saiba qual usar em cada tipo de fogo (Classe A, B, C, D e K).',
     readTime: '5 min',
@@ -1097,7 +1074,7 @@ const blogPosts = [
   {
     slug: '/blog/sinalizacao-emergencia-normas',
     tag: 'Sinalização',
-    tagColor: 'text-brand-gold',
+    tagColor: 'text-brand-red',
     title: 'Sinalização de Emergência: O que as Normas do CBMMG Exigem',
     desc: 'Placas de saída de emergência, extintores, hidrantes e rotas de fuga — posicionamento correto conforme as ITs.',
     readTime: '4 min',
@@ -1115,7 +1092,7 @@ const blogPosts = [
   {
     slug: '/blog/documentos-necessarios-regularizacao',
     tag: 'Documentação',
-    tagColor: 'text-brand-gold',
+    tagColor: 'text-brand-red',
     title: 'Checklist Completo: Documentos para AVCB e CLCB',
     desc: 'ART, laudo de manutenção, teste hidrostático, planta aprovada — prepare tudo antes para agilizar a aprovação.',
     readTime: '3 min',
@@ -1124,7 +1101,7 @@ const blogPosts = [
   {
     slug: '/blog/projeto-tecnico-ppci-industrial',
     tag: 'Industrial',
-    tagColor: 'text-brand-orange',
+    tagColor: 'text-slate-900',
     title: 'PPCI para Indústrias: Como aprovar grandes áreas no CBMMG',
     desc: 'Desafios técnicos na aprovação de indústrias e galpões logísticos seguindo IT 19 e IT 20.',
     readTime: '6 min',
@@ -1133,7 +1110,7 @@ const blogPosts = [
   {
     slug: '/blog/laudo-de-estanqueidade-gas-avcb',
     tag: 'Laudo Técnico',
-    tagColor: 'text-brand-gold',
+    tagColor: 'text-brand-red',
     title: 'Laudo de Estanqueidade de Gás: Quando é obrigatório?',
     desc: 'Tudo sobre o teste de pressão e estanqueidade exigido para AVCB em condomínios e restaurantes.',
     readTime: '4 min',
@@ -1142,7 +1119,7 @@ const blogPosts = [
   {
     slug: '/blog/treinamento-brigada-incendio-montes-claros',
     tag: 'Treinamento',
-    tagColor: 'text-brand-red',
+    tagColor: 'text-slate-900',
     title: 'Treinamento de Brigada de Incêndio em Montes Claros',
     desc: 'Formação obrigatória (IT 12) para funcionários e moradores. Garanta a segurança e o AVCB.',
     readTime: '5 min',
@@ -1151,7 +1128,7 @@ const blogPosts = [
   {
     slug: '/blog/responsabilidade-sindico-incendio',
     tag: 'Jurídico',
-    tagColor: 'text-brand-gold',
+    tagColor: 'text-brand-red',
     title: 'Responsabilidade Civil e Criminal do Síndico em Incêndios',
     desc: 'O que a lei diz sobre a negligência no AVCB e a segurança dos condomínios residenciais.',
     readTime: '6 min',
@@ -1160,7 +1137,7 @@ const blogPosts = [
 ];
 
 const BlogSection = () => (
-  <section id="blog" className="py-40 bg-brand-graphite tech-grid-subtle">
+  <section id="blog" className="py-40 bg-slate-50 tech-grid-subtle">
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
       {/* Header */}
@@ -1177,7 +1154,7 @@ const BlogSection = () => (
         <h2 className="hero-title mb-6">
           Blog de <span className="text-gradient">Engenharia</span>
         </h2>
-        <p className="text-zinc-500 max-w-2xl mx-auto font-light text-lg">
+        <p className="text-slate-800 max-w-2xl mx-auto font-normal text-lg">
           Publicamos guias técnicos sobre AVCB, CLCB e regularização junto ao Corpo de Bombeiros Militar de MG (CBMMG) — para que sua empresa esteja sempre em conformidade com a legislação vigente.
         </p>
       </motion.div>
@@ -1185,51 +1162,48 @@ const BlogSection = () => (
       {/* Cards Grid */}
       <div className="precision-grid md:grid-cols-2">
         {blogPosts.map((post, i) => (
-          <motion.div
+          <motion.a
             key={post.slug}
+            href={post.slug}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
+            className="group block bg-white border border-slate-200 overflow-hidden hover:bg-white/[0.02] transition-all duration-700"
           >
-            <Link
-              to={post.slug}
-              className="group block bg-brand-dark border border-white/5 overflow-hidden hover:bg-white/[0.02] transition-all duration-700"
-            >
-              {/* Image */}
-              <div className="relative overflow-hidden h-64">
-                <img
-                  loading="lazy"
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent opacity-60" />
-                <span className={`absolute top-6 left-6 text-[9px] uppercase tracking-widest font-bold ${post.tagColor} bg-black/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/5`}>
-                  {post.tag}
-                </span>
-              </div>
+            {/* Image */}
+            <div className="relative overflow-hidden h-64">
+              <img
+                loading="lazy"
+                src={post.image}
+                alt={post.title}
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent opacity-60" />
+              <span className={`absolute top-6 left-6 text-[9px] uppercase tracking-widest font-bold ${post.tagColor} bg-slate-900/80 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200`}>
+                {post.tag}
+              </span>
+            </div>
 
-              {/* Content */}
-              <div className="p-12">
-                <h3 className="text-xl font-bold text-white mb-4 leading-tight group-hover:text-brand-gold transition-colors">
-                  {post.title}
-                </h3>
-                <p className="text-zinc-500 text-base font-light leading-relaxed mb-10">
-                  {post.desc}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-zinc-600 uppercase tracking-widest font-bold">
-                    {post.readTime} leitura
-                  </span>
-                  <div className="flex items-center gap-3 text-brand-red text-[11px] uppercase tracking-widest font-bold group-hover:gap-6 transition-all duration-500">
-                    Ler Artigo
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
+            {/* Content */}
+            <div className="p-12">
+              <h3 className="text-xl font-bold text-slate-900 mb-4 leading-tight group-hover:text-brand-red transition-colors">
+                {post.title}
+              </h3>
+              <p className="text-slate-800 text-base font-normal leading-relaxed mb-10">
+                {post.desc}
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-slate-900 uppercase tracking-widest font-bold">
+                  {post.readTime} leitura
+                </span>
+                <div className="flex items-center gap-3 text-brand-red text-sm uppercase tracking-widest font-bold group-hover:gap-6 transition-all duration-500">
+                  Ler Artigo
+                  <ArrowRight className="w-4 h-4" />
                 </div>
               </div>
-            </Link>
-          </motion.div>
+            </div>
+          </motion.a>
         ))}
       </div>
 
@@ -1239,9 +1213,9 @@ const BlogSection = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: 0.3 }}
-        className="mt-32 pt-24 border-t border-white/5 px-6"
+        className="mt-32 pt-24 border-t border-slate-200 px-6"
       >
-        <p className="text-center text-zinc-600 text-[10px] uppercase tracking-[0.4em] font-bold mb-16">
+        <p className="text-center text-slate-900 text-xs uppercase tracking-[0.4em] font-bold mb-16">
           🔗 Recursos Oficiais — CBMMG
         </p>
         <div className="precision-grid md:grid-cols-2">
@@ -1255,8 +1229,8 @@ const BlogSection = () => (
               <ShieldCheck className="w-6 h-6 text-brand-red" />
             </div>
             <div>
-              <h4 className="text-white font-bold text-lg mb-1 group-hover:text-brand-gold transition-colors">INFOSCIP — Sistema Oficial CBMMG</h4>
-              <p className="text-zinc-500 text-sm font-light leading-relaxed">
+              <h4 className="text-slate-900 font-bold text-lg mb-1 group-hover:text-brand-red transition-colors">INFOSCIP — Sistema Oficial CBMMG</h4>
+              <p className="text-slate-800 text-base font-normal leading-relaxed">
                 Portal oficial para aprovação, renovação e consulta de AVCB/CLCB junto ao Corpo de Bombeiros de Minas Gerais.
               </p>
               <span className="text-brand-red text-[9px] uppercase tracking-widest font-bold flex items-center gap-2 mt-3 group-hover:gap-4 transition-all">
@@ -1269,17 +1243,17 @@ const BlogSection = () => (
             href="https://www.bombeiros.mg.gov.br/normastecnicas"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-start gap-6 p-8 premium-border glass-surface hover:border-brand-gold/40 transition-all duration-500 rounded-xl"
+            className="group flex items-start gap-6 p-8 premium-border glass-surface hover:border-brand-red/40 transition-all duration-500 rounded-xl"
           >
-            <div className="w-12 h-12 flex-shrink-0 bg-brand-gold/10 rounded-lg flex items-center justify-center group-hover:bg-brand-gold/20 transition-colors">
-              <FileText className="w-6 h-6 text-brand-gold" />
+            <div className="w-12 h-12 flex-shrink-0 bg-brand-red/10 rounded-lg flex items-center justify-center group-hover:bg-brand-red/20 transition-colors">
+              <FileText className="w-6 h-6 text-brand-red" />
             </div>
             <div>
-              <h4 className="text-white font-bold text-lg mb-1 group-hover:text-brand-gold transition-colors">Instruções Técnicas (ITs) — CBMMG</h4>
-              <p className="text-zinc-500 text-sm font-light leading-relaxed">
+              <h4 className="text-slate-900 font-bold text-lg mb-1 group-hover:text-brand-red transition-colors">Instruções Técnicas (ITs) — CBMMG</h4>
+              <p className="text-slate-800 text-base font-normal leading-relaxed">
                 Acesse as Instruções Técnicas oficiais que regem todos os projetos de Prevenção e Combate a Incêndio no Estado de MG.
               </p>
-              <span className="text-brand-gold text-[9px] uppercase tracking-widest font-bold flex items-center gap-2 mt-3 group-hover:gap-4 transition-all">
+              <span className="text-brand-red text-[9px] uppercase tracking-widest font-bold flex items-center gap-2 mt-3 group-hover:gap-4 transition-all">
                 Ver Instruções Técnicas <ArrowRight className="w-3 h-3" />
               </span>
             </div>
@@ -1287,14 +1261,14 @@ const BlogSection = () => (
         </div>
       </motion.div>
     </div>
-  </section >
+  </section>
 );
 
 // ====================================================
 // INLINE CTA — WhatsApp Conversion Section
 // ====================================================
 const InlineCTA = () => (
-  <section className="py-24 bg-brand-dark relative overflow-hidden">
+  <section className="py-24 bg-white relative overflow-hidden">
     {/* Fire ambient glow */}
     <div className="absolute inset-0 pointer-events-none">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-brand-red/5 blur-[120px] rounded-full" />
@@ -1307,23 +1281,23 @@ const InlineCTA = () => (
       className="max-w-4xl mx-auto px-6 text-center relative z-10"
     >
       <div className="fire-line w-16 mx-auto mb-10" />
-      <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+      <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
         Sua empresa está com o <br />
         <span className="text-gradient">AVCB em dia?</span>
       </h2>
-      <p className="text-zinc-400 font-light text-lg mb-10 max-w-xl mx-auto">
+      <p className="text-slate-900 font-normal text-lg mb-10 max-w-xl mx-auto">
         Uma vistoria irregular do Corpo de Bombeiros pode resultar em multa, interdição e perda do seguro. Solicite um diagnóstico gratuito.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <button
           onClick={() => window.open('https://wa.me/5538984056240?text=Olá! Gostaria de um diagnóstico gratuito do meu AVCB.', '_blank')}
-          className="btn-fire px-10 py-5 text-white text-[10px] uppercase tracking-[0.3em] font-bold rounded-none"
+          className="btn-fire px-10 py-4 text-slate-900 text-base uppercase tracking-widest font-bold rounded-none"
         >
           🔥 Diagnóstico Gratuito via WhatsApp
         </button>
         <a
           href="tel:+5538984056240"
-          className="btn-outline px-10 py-5 text-[10px] uppercase tracking-[0.3em] font-bold flex items-center justify-center transition-all duration-300"
+          className="px-10 py-4 border border-white/10 text-slate-900 hover:text-slate-900 hover:border-white/30 text-base uppercase tracking-widest font-bold transition-all duration-300"
         >
           (38) 98405-6240
         </a>
@@ -1333,12 +1307,12 @@ const InlineCTA = () => (
 );
 
 const GoogleMap = () => (
-  <section className="py-40 bg-brand-dark">
+  <section className="py-40 bg-white tech-grid-subtle">
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
       <div className="text-center mb-20">
-        <span className="text-brand-gold text-[10px] uppercase tracking-[0.4em] font-bold mb-6 block">Localização Estratégica</span>
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">Nossa Base em Montes Claros.</h2>
-        <p className="text-zinc-500 max-w-2xl mx-auto font-light">
+        <span className="text-brand-red text-xs uppercase tracking-[0.4em] font-bold mb-6 block">Localização Estratégica</span>
+        <h2 className="text-4xl md:text-6xl font-bold text-gradient mb-8">Nossa Base em Montes Claros.</h2>
+        <p className="text-slate-800 max-w-2xl mx-auto font-normal">
           Situados no coração do Norte de Minas, atendemos toda a região com agilidade e presença técnica constante.
         </p>
       </div>
@@ -1359,22 +1333,22 @@ const GoogleMap = () => (
         <div className="flex items-center gap-6">
           <MapPin className="text-brand-red w-8 h-8" />
           <div>
-            <h4 className="text-white font-bold">Endereço</h4>
-            <p className="text-zinc-500 text-sm">Montes Claros, MG - Brasil</p>
+            <h4 className="text-slate-900 font-bold">Endereço</h4>
+            <p className="text-slate-800 text-base">Montes Claros, MG - Brasil</p>
           </div>
         </div>
         <div className="flex items-center gap-6">
           <Phone className="text-brand-red w-8 h-8" />
           <div>
-            <h4 className="text-white font-bold">Telefone</h4>
-            <p className="text-zinc-500 text-sm">(38) 98405-6240</p>
+            <h4 className="text-slate-900 font-bold">Telefone</h4>
+            <p className="text-slate-800 text-base">(38) 98405-6240</p>
           </div>
         </div>
         <div className="flex items-center gap-6">
           <Mail className="text-brand-red w-8 h-8" />
           <div>
-            <h4 className="text-white font-bold">E-mail</h4>
-            <p className="text-zinc-500 text-sm">avcbmoc@gmail.com</p>
+            <h4 className="text-slate-900 font-bold">E-mail</h4>
+            <p className="text-slate-800 text-base">avcbmoc@gmail.com</p>
           </div>
         </div>
       </div>
@@ -1424,7 +1398,7 @@ const Segments = ({ onSelectSegment }: any) => {
       title: "Supermercados",
       desc: "Gestão de grandes fluxos de pessoas e estoques variados. Foco em sinalização e saídas de emergência.",
       icon: ShoppingCart,
-      image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&q=80&w=800&h=400&grayscale=true", // Supermarket with visible exit signs
+      image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=800&h=400&grayscale=true", // Supermarket with visible exit signs
     },
     {
       id: "escolas",
@@ -1476,48 +1450,45 @@ const Segments = ({ onSelectSegment }: any) => {
   };
 
   return (
-    <section id="segmentos" className="py-40 bg-brand-dark overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-        <div className="text-center mb-32">
-          <span className="tech-label mb-6 block">Setores de Atuação</span>
-          <h2 className="hero-title">Soluções Verticais.</h2>
+    <section id="segmentos" className="py-40 bg-white relative overflow-hidden tech-grid-subtle">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="text-center mb-20">
+          <span className="text-brand-red text-xs uppercase tracking-[0.4em] font-bold mb-6 block">Áreas de Atuação</span>
+          <h2 className="text-4xl md:text-6xl font-bold text-gradient mb-8">Soluções Verticais.</h2>
+          <p className="text-slate-800 max-w-2xl mx-auto font-normal">
+            Domínio técnico absoluto em normas específicas para cada setor da economia.
+          </p>
         </div>
 
-        <div className="precision-grid">
-          {segments.map((segment, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{
-                scale: 1.02,
-                boxShadow: "0 0 40px rgba(139, 0, 0, 0.15)",
-                backgroundColor: "rgba(255, 255, 255, 0.03)"
-              }}
-              className="premium-border overflow-hidden bg-white/[0.01] group cursor-pointer transition-colors duration-500"
-              onClick={() => handleSelect(segment)}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-100 border border-slate-200">
+          {segments.map((segment) => (
+            <div
+              key={segment.id}
+              className="group relative h-[450px] overflow-hidden bg-white hover:bg-slate-50 transition-all duration-700 cursor-pointer"
+              onClick={() => onSelectSegment(segment.id)}
             >
-              <div className="aspect-[2/1] overflow-hidden">
+              <div className="absolute inset-0 z-0">
                 <img
                   src={segment.image}
                   alt={segment.title}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 opacity-20 group-hover:opacity-40"
                   referrerPolicy="no-referrer"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
               </div>
-              <div className="p-12">
-                <div className="flex items-center gap-6 mb-6">
-                  <segment.icon className="text-brand-red w-8 h-8 group-hover:scale-110 transition-transform duration-500" />
-                  <h4 className="text-xl font-bold text-white group-hover:text-brand-gold transition-colors duration-500">{segment.title}</h4>
-                </div>
-                <p className="text-zinc-500 text-sm font-light leading-relaxed mb-8">{segment.desc}</p>
-                <div className="text-brand-gold text-[10px] uppercase tracking-[0.2em] font-bold flex items-center gap-3 group-hover:gap-5 transition-all duration-300">
-                  Ver Detalhes Técnicos <ArrowRight className="w-4 h-4" />
+
+              <div className="relative z-10 p-12 h-full flex flex-col">
+                <segment.icon className="w-10 h-10 text-brand-red mb-8 group-hover:scale-110 transition-all duration-500" />
+                <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-brand-red transition-colors">{segment.title}</h3>
+                <p className="text-slate-800 text-base font-normal leading-relaxed mb-8 flex-grow">
+                  {segment.desc}
+                </p>
+                <div className="flex items-center gap-3 text-brand-red text-xs uppercase tracking-widest font-bold group-hover:gap-5 transition-all duration-500">
+                  Ver Detalhes Técnicos
+                  <ArrowRight className="w-4 h-4" />
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -1530,16 +1501,16 @@ const Segments = ({ onSelectSegment }: any) => {
 const FAQItem = ({ question, answer }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border-b border-white/5 py-10">
+    <div className="border-b border-slate-200 py-10">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex justify-between items-center text-left group"
       >
-        <span className={`text-lg md:text-xl transition-all duration-500 ${isOpen ? 'text-brand-gold' : 'text-white group-hover:text-zinc-300'}`}>
+        <span className={`text-lg md:text-xl transition-all duration-500 ${isOpen ? 'text-brand-red' : 'text-slate-900 group-hover:text-slate-800'}`}>
           {question}
         </span>
-        <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-500 ${isOpen ? 'rotate-180 border-brand-gold' : ''}`}>
-          <ChevronDown className={`w-4 h-4 ${isOpen ? 'text-brand-gold' : 'text-zinc-600'}`} />
+        <div className={`w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-500 ${isOpen ? 'rotate-180 border-brand-red' : ''}`}>
+          <ChevronDown className={`w-4 h-4 ${isOpen ? 'text-brand-red' : 'text-slate-900'}`} />
         </div>
       </button>
       <AnimatePresence>
@@ -1551,7 +1522,7 @@ const FAQItem = ({ question, answer }: any) => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="text-zinc-500 text-base mt-8 leading-relaxed font-light max-w-3xl">
+            <p className="text-slate-800 text-base mt-8 leading-relaxed font-normal max-w-3xl">
               {answer}
             </p>
           </motion.div>
@@ -1562,9 +1533,9 @@ const FAQItem = ({ question, answer }: any) => {
 };
 
 const FAQ = () => (
-  <section id="faq" className="py-40 bg-brand-dark relative overflow-hidden">
+  <section id="faq" className="py-40 bg-white relative overflow-hidden">
     {/* Background Decorative Elements */}
-    <div className="absolute top-0 left-0 w-full h-full opacity-[0.05] pointer-events-none z-0">
+    <div className="absolute top-0 left-0 w-full h-full opacity-[0.30] pointer-events-none z-0">
       <img
         src="/images/fire_extinguisher_wall.png"
         alt="Extintores"
@@ -1600,8 +1571,8 @@ const FAQ = () => (
 );
 
 const Footer = () => (
-  <footer className="bg-brand-dark pt-40 pb-16 border-t border-white/5 relative overflow-hidden">
-    <div className="absolute top-0 right-0 p-20 opacity-[0.05] pointer-events-none select-none overflow-hidden">
+  <footer className="bg-white pt-40 pb-16 border-t border-slate-200 relative overflow-hidden">
+    <div className="absolute top-0 right-0 p-20 opacity-[0.30] pointer-events-none select-none overflow-hidden">
       <img
         src="/images/fire_safety_technical_project.png"
         alt="Projeto Técnico"
@@ -1613,13 +1584,13 @@ const Footer = () => (
       <div className="grid lg:grid-cols-4 gap-24 mb-32">
         <div className="col-span-1 lg:col-span-1">
           <div className="flex flex-col mb-10">
-            <span className="font-display font-bold text-4xl tracking-tight text-white leading-none">
-              <span className="text-brand-orange">FIRE</span>
+            <span className="font-display font-bold text-4xl tracking-tight text-slate-900 leading-none">
+              <span className="text-brand-red">FIRE</span>
               <span className="text-brand-red">X</span>
             </span>
-            <span className="tech-label text-[8px] mt-2 opacity-70">Engenharia de Combate a Incêndio</span>
+            <span className="tech-label text-xs mt-2 opacity-70">Engenharia de Combate a Incêndio</span>
           </div>
-          <p className="text-zinc-600 text-sm leading-relaxed font-light">
+          <p className="text-slate-900 text-base leading-relaxed font-normal">
             Referência técnica em engenharia de incêndio no Norte de Minas.
             Compromisso inegociável com o rigor normativo e a segurança patrimonial.
           </p>
@@ -1630,19 +1601,7 @@ const Footer = () => (
           <ul className="space-y-6">
             {['Serviços', 'Expertise', 'Segmentos', 'Blog', 'FAQ'].map(item => (
               <li key={item}>
-                <button
-                  onClick={() => {
-                    if (window.location.pathname === '/') {
-                      const el = document.querySelector(`#${item.toLowerCase()}`);
-                      el?.scrollIntoView({ behavior: 'smooth' });
-                    } else {
-                      window.location.href = `/#${item.toLowerCase()}`;
-                    }
-                  }}
-                  className="text-zinc-500 text-[11px] uppercase tracking-[0.2em] font-bold hover:text-white transition-colors duration-300 text-left"
-                >
-                  {item}
-                </button>
+                <a href={`#${item.toLowerCase()}`} className="text-slate-800 text-sm uppercase tracking-[0.2em] font-bold hover:text-slate-900 transition-colors duration-300">{item}</a>
               </li>
             ))}
           </ul>
@@ -1653,15 +1612,15 @@ const Footer = () => (
           <ul className="space-y-8">
             <li className="flex items-center gap-6 group">
               <Phone className="w-5 h-5 text-brand-red group-hover:scale-110 transition-transform" />
-              <span className="text-zinc-500 text-sm font-light">(38) 98405-6240</span>
+              <span className="text-slate-800 text-base font-normal">(38) 98405-6240</span>
             </li>
             <li className="flex items-center gap-6 group">
               <Mail className="w-5 h-5 text-brand-red group-hover:scale-110 transition-transform" />
-              <span className="text-zinc-500 text-sm font-light">avcbmoc@gmail.com</span>
+              <span className="text-slate-800 text-base font-normal">avcbmoc@gmail.com</span>
             </li>
             <li className="flex items-center gap-6 group">
               <MapPin className="w-5 h-5 text-brand-red group-hover:scale-110 transition-transform" />
-              <span className="text-zinc-500 text-sm font-light">Av. Corinto Crisóstomo Freire, Morada do Parque - Montes Claros, MG</span>
+              <span className="text-slate-800 text-base font-normal">Av. Corinto Crisóstomo Freire, Morada do Parque - Montes Claros, MG</span>
             </li>
           </ul>
         </div>
@@ -1669,19 +1628,19 @@ const Footer = () => (
         <div>
           <h4 className="tech-label mb-10 block opacity-50">Credenciais Técnicas</h4>
           <div className="flex gap-4">
-            <div className="px-4 py-2 border border-white/5 bg-white/[0.02] text-[8px] text-zinc-600 font-bold uppercase tracking-widest">CREA-MG</div>
-            <div className="px-4 py-2 border border-white/5 bg-white/[0.02] text-[8px] text-zinc-600 font-bold uppercase tracking-widest">CBMMG</div>
+            <div className="px-4 py-2 border border-slate-200 bg-white/[0.02] text-xs text-slate-900 font-bold uppercase tracking-widest">CREA-MG</div>
+            <div className="px-4 py-2 border border-slate-200 bg-white/[0.02] text-xs text-slate-900 font-bold uppercase tracking-widest">CBMMG</div>
           </div>
         </div>
       </div>
 
-      <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-        <p className="text-zinc-800 text-[10px] uppercase tracking-[0.4em] font-bold">
+      <div className="pt-16 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-8">
+        <p className="text-zinc-800 text-xs uppercase tracking-[0.4em] font-bold">
           © 2026 FIREX Engenharia. Engenharia de Combate a Incêndio.
         </p>
         <div className="flex gap-12">
-          <Link to="/privacidade" className="text-zinc-800 text-[10px] uppercase tracking-[0.3em] font-bold hover:text-white transition-colors">Privacidade</Link>
-          <Link to="/termos" className="text-zinc-800 text-[10px] uppercase tracking-[0.3em] font-bold hover:text-white transition-colors">Termos de Uso</Link>
+          <Link to="/privacidade" className="text-zinc-800 text-xs uppercase tracking-[0.3em] font-bold hover:text-slate-900 transition-colors">Privacidade</Link>
+          <Link to="/termos" className="text-zinc-800 text-xs uppercase tracking-[0.3em] font-bold hover:text-slate-900 transition-colors">Termos de Uso</Link>
         </div>
       </div>
     </div>
@@ -1695,34 +1654,34 @@ const WhatsAppFAB = () => (
     whileHover={{ scale: 1.1 }}
     whileTap={{ scale: 0.9 }}
     onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-    className="fixed bottom-24 right-8 z-50 w-16 h-16 bg-[#128C7E] text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-[#075E54] transition-colors md:bottom-8"
+    className="fixed bottom-8 right-8 z-50 w-16 h-16 bg-green-600 text-slate-900 rounded-full shadow-2xl flex items-center justify-center hover:bg-green-500 transition-colors glow-subtle"
     aria-label="Falar conosco no WhatsApp"
   >
-    <MessageCircle className="w-8 h-8" />
+    <Phone className="w-8 h-8" />
   </motion.button>
 );
 
 // --- Page Components ---
 
 const PageTemplate = ({ title, h1, content, seoDesc }: any) => (
-  <div className="min-h-screen bg-brand-dark pt-32 pb-40">
+  <div className="min-h-screen bg-white pt-32 pb-40">
     <Helmet>
       <title>{title} | Firex</title>
       <meta name="description" content={seoDesc} />
     </Helmet>
     <div className="max-w-4xl mx-auto px-6 lg:px-12">
-      <Link to="/" className="text-brand-gold text-[10px] uppercase tracking-[0.3em] font-bold mb-12 flex items-center gap-4 hover:gap-6 transition-all">
+      <Link to="/" className="text-brand-red text-xs uppercase tracking-[0.3em] font-bold mb-12 flex items-center gap-4 hover:gap-6 transition-all">
         <ArrowRight className="w-4 h-4 rotate-180" /> Voltar para Home
       </Link>
-      <h1 className="text-5xl md:text-7xl font-bold text-white mb-12 leading-tight">{h1}</h1>
-      <div className="prose prose-invert max-w-none text-zinc-400 font-light leading-relaxed">
+      <h1 className="text-5xl md:text-7xl font-bold text-slate-900 mb-12 leading-tight">{h1}</h1>
+      <div className="prose prose-invert max-w-none text-slate-900 font-normal leading-relaxed">
         {content}
       </div>
       <div className="mt-20 bg-brand-red p-12 rounded-3xl text-center">
-        <h3 className="text-3xl font-bold text-white mb-6">Precisa de auxílio técnico?</h3>
+        <h3 className="text-3xl font-bold text-slate-900 mb-6">Precisa de auxílio técnico?</h3>
         <button
           onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-          className="bg-white text-brand-red px-12 py-4 rounded-md font-bold uppercase tracking-widest text-xs hover:bg-zinc-100 transition-all"
+          className="bg-white text-brand-red px-12 py-4 rounded-md font-bold uppercase tracking-widest text-base hover:bg-zinc-100 transition-all"
         >
           Falar no WhatsApp
         </button>
@@ -1732,11 +1691,11 @@ const PageTemplate = ({ title, h1, content, seoDesc }: any) => (
 );
 
 const Testimonials = () => (
-  <section className="py-40 bg-brand-dark">
+  <section className="py-40 bg-white">
     <div className="max-w-7xl mx-auto px-6 lg:px-12">
       <div className="text-center mb-20">
-        <span className="text-brand-gold text-[10px] uppercase tracking-[0.4em] font-bold mb-6 block">Prova Social</span>
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">Quem Confia na <span className="text-gradient">FIREX</span>.</h2>
+        <span className="text-brand-red text-xs uppercase tracking-[0.4em] font-bold mb-6 block">Prova Social</span>
+        <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-8">Quem Confia na <span className="text-gradient">FIREX</span>.</h2>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -1770,13 +1729,13 @@ const Testimonials = () => (
           >
             <div className="flex gap-1 mb-6">
               {[...Array(t.rating)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-brand-gold text-brand-gold" />
+                <Star key={i} className="w-4 h-4 fill-brand-gold text-brand-red" />
               ))}
             </div>
-            <p className="text-zinc-400 font-light italic mb-8">"{t.text}"</p>
+            <p className="text-slate-900 font-normal italic mb-8">"{t.text}"</p>
             <div>
-              <p className="text-white font-bold">{t.name}</p>
-              <p className="text-brand-red text-[10px] uppercase tracking-widest">{t.role}</p>
+              <p className="text-slate-900 font-bold">{t.name}</p>
+              <p className="text-brand-red text-xs uppercase tracking-widest">{t.role}</p>
             </div>
           </motion.div>
         ))}
@@ -1786,12 +1745,12 @@ const Testimonials = () => (
 );
 
 const StickyMobileCTA = () => (
-  <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 p-4 bg-brand-dark/95 backdrop-blur-xl border-t border-white/5">
+  <div className="md:hidden fixed bottom-0 left-0 right-0 z-[60] p-4 bg-white/80 backdrop-blur-lg border-t border-slate-200">
     <button
       onClick={() => window.open('https://wa.me/5538984056240?text=Olá! Vim pelo site e gostaria de um orçamento.', '_blank')}
-      className="btn-fire w-full py-5 text-white text-[10px] uppercase tracking-[0.3em] font-bold flex items-center justify-center gap-3 shadow-2xl shadow-brand-red/20"
+      className="btn-fire w-full py-4 text-slate-900 text-xs uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-3"
     >
-      <MessageCircle className="w-4 h-4" /> Solicitar Orçamento Grátis
+      <Phone className="w-4 h-4" /> Solicitar Orçamento Grátis
     </button>
   </div>
 );
@@ -1833,10 +1792,9 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen font-sans selection:bg-brand-red selection:text-white bg-brand-dark">
+      <div className="min-h-screen font-sans selection:bg-brand-red selection:text-white bg-white">
         <SEOData />
         <LocalBusinessSchema />
-        <ScrollToTop />
         <Navbar />
         <WhatsAppFAB />
         <StickyMobileCTA />
@@ -1957,15 +1915,15 @@ export default function App() {
               h1="Como renovar AVCB em Montes Claros: Passo a Passo"
               seoDesc="Guia definitivo para renovar seu AVCB em Montes Claros sem complicações. Evite multas do CBMMG."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>A renovação do <strong>Auto de Vistoria do Corpo de Bombeiros (AVCB)</strong> em Montes Claros é obrigatória para manter a legalidade de condomínios, indústrias e comércios. Sem ele, seguros não pagam prêmios em caso de sinistro.</p>
-                  <h2 className="text-2xl font-bold text-white mt-8 mb-4">Passo 1: Vistoria Prévia de Engenharia</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Passo 1: Vistoria Prévia de Engenharia</h2>
                   <p>Antes de acionar os Bombeiros (CBMMG), um <strong>Engenheiro Mecânico especialista em PPCI</strong> deve realizar um diagnóstico da edificação para garantir que hidrantes, alarmes e extintores estão de acordo com as Instruções Técnicas.</p>
-                  <h2 className="text-2xl font-bold text-white mt-8 mb-4">Passo 2: Emissão da ART e Laudos</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Passo 2: Emissão da ART e Laudos</h2>
                   <p>A FIREX emite a Anotação de Responsabilidade Técnica (ART) atestando o pleno funcionamento dos sistemas de combate a incêndio. Esse documento é exigido pelo sistema Infoscip.</p>
-                  <div className="bg-brand-dark/80 p-6 border-l-4 border-brand-red rounded-r-xl mt-8">
-                    <p className="text-brand-gold font-bold mb-2">Despacho Acelerado</p>
-                    <p className="text-white text-sm">A FIREX Engenharia atua diretamente em Montes Claros - MG. Cuidamos de toda a burocracia para emissão do seu AVCB/CLCB.</p>
+                  <div className="bg-white/80 p-6 border-l-4 border-brand-red rounded-r-xl mt-8">
+                    <p className="text-brand-red font-bold mb-2">Despacho Acelerado</p>
+                    <p className="text-slate-900 text-base">A FIREX Engenharia atua diretamente em Montes Claros - MG. Cuidamos de toda a burocracia para emissão do seu AVCB/CLCB.</p>
                   </div>
                 </div>
               }
@@ -1978,11 +1936,11 @@ export default function App() {
               h1="AVCB, CLCB ou Alvará: Qual sua Edificação Precisa?"
               seoDesc="Entenda a diferença técnica e legal entre AVCB (Auto de Vistoria) e CLCB (Certificado de Licenciamento) emitidos pelo Corpo de Bombeiros."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>A confusão entre os termos é comum, mas a escolha errada atrasa a abertura de empresas. A legislação de Minas Gerais divide as licenças pelo grau de risco da ocupação.</p>
-                  <h2 className="text-2xl font-bold text-white mt-8 mb-4">O que é o CLCB? (Risco Baixo)</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">O que é o CLCB? (Risco Baixo)</h2>
                   <p>O Certificado de Licenciamento do Corpo de Bombeiros (CLCB) aplica-se a edificações menores (até 200m²), sem riscos especiais. Em muitos casos, um <strong>Engenheiro responsável</strong> emite a ART e a liberação é feita sem vistoria in loco do CBMMG.</p>
-                  <h2 className="text-2xl font-bold text-white mt-8 mb-4">O que é o AVCB? (Risco Médio/Alto)</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">O que é o AVCB? (Risco Médio/Alto)</h2>
                   <p>O Auto de Vistoria obriga a aprovação de um <strong>Projeto de Prevenção e Combate a Incêndio (PPCI)</strong> detalhado. Exige sistemas robustos (hidrantes, alarme, sprinklers) e uma vistoria física de um Sargento/Oficial dos Bombeiros.</p>
                 </div>
               }
@@ -1995,13 +1953,13 @@ export default function App() {
               h1="Riscos de Operar com o AVCB Vencido em MG"
               seoDesc="Quais as penalidades, multas e riscos jurídicos (responsabilidade civil/criminal) de operar com o Auto de Vistoria do CBMMG vencido."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>Operar com documentação vencida caracteriza negligência estrutural segundo a lei estadual de Minas Gerais. As sanções evoluem drasticamente.</p>
                   <ul className="list-disc pl-5 space-y-3 mt-4">
-                    <li><strong className="text-white">Multas Financeiras:</strong> O CBMMG pode aplicar multas diárias severas (Calculadas em UFEMG).</li>
-                    <li><strong className="text-white">Interdição:</strong> O fechamento do estabelecimento é imediato em caso de Risco Iminente.</li>
-                    <li><strong className="text-white">Quebra de Apólice:</strong> Seguradoras utilizam o AVCB vencido como cláusula de exclusão, recusando o pagamento de indenizações num sinistro.</li>
-                    <li><strong className="text-white">Risco Criminal:</strong> Síndicos e Diretores respondem criminalmente (dolo eventual) caso haja vítimas em um prédio sem laudo técnico vigente.</li>
+                    <li><strong className="text-slate-900">Multas Financeiras:</strong> O CBMMG pode aplicar multas diárias severas (Calculadas em UFEMG).</li>
+                    <li><strong className="text-slate-900">Interdição:</strong> O fechamento do estabelecimento é imediato em caso de Risco Iminente.</li>
+                    <li><strong className="text-slate-900">Quebra de Apólice:</strong> Seguradoras utilizam o AVCB vencido como cláusula de exclusão, recusando o pagamento de indenizações num sinistro.</li>
+                    <li><strong className="text-slate-900">Risco Criminal:</strong> Síndicos e Diretores respondem criminalmente (dolo eventual) caso haja vítimas em um prédio sem laudo técnico vigente.</li>
                   </ul>
                   <p className="mt-8">Não arrisque. Consulte uma <strong>Engenharia Especializada em Combate a Incêndio</strong> para agilizar sua regularização.</p>
                 </div>
@@ -2015,16 +1973,16 @@ export default function App() {
               h1="5 Erros na Vistoria dos Bombeiros (e como evitá-los)"
               seoDesc="Lista técnica dos 5 erros mais comuns que causam a reprovação na vistoria do Corpo de Bombeiros de Minas Gerais."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>A taxa de reprovação em vistorias iniciais é alta (quase 40%) por falta de gestão técnica adequada (falhas de engenharia e execução).</p>
-                  <h3 className="text-xl font-bold text-white mt-6 mb-2">1. Divergência de Layout</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mt-6 mb-2">1. Divergência de Layout</h3>
                   <p>O layout físico do local (paredes, portas) está diferente da planta do Projeto (PPCI) aprovado no INFOSCIP.</p>
-                  <h3 className="text-xl font-bold text-white mt-6 mb-2">2. Validade dos Extintores e Mangueiras</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mt-6 mb-2">2. Validade dos Extintores e Mangueiras</h3>
                   <p>Equipamentos sem selo do INMETRO ou com teste hidrostático das mangueiras vencido são alvos fáceis.</p>
-                  <h3 className="text-xl font-bold text-white mt-6 mb-2">3. Luzes de Emergência Instaladas Irregularmente</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mt-6 mb-2">3. Luzes de Emergência Instaladas Irregularmente</h3>
                   <p>Autonomia de bateria insuficiente (meno que 1 a 2 horas) ou ausência de iluminância mínima exigida pela IT correspondente.</p>
-                  <div className="bg-brand-dark/50 p-6 border-l-4 border-brand-red rounded-r-lg my-8">
-                    <p className="text-white font-medium">Contratar a consultoria da FIREX Engenharia zera os riscos de reprovação. Verificamos cada equipamento antes do Bombeiro pisar no local.</p>
+                  <div className="bg-white/50 p-6 border-l-4 border-brand-red rounded-r-lg my-8">
+                    <p className="text-slate-900 font-medium">Contratar a consultoria da FIREX Engenharia zera os riscos de reprovação. Verificamos cada equipamento antes do Bombeiro pisar no local.</p>
                   </div>
                 </div>
               }
@@ -2037,16 +1995,16 @@ export default function App() {
               h1="Extintores de Incêndio: Guia de Classes A, B, C, D e K"
               seoDesc="Entenda qual extintor usar para cada tipo de fogo. Guia técnico sobre extintores de Água, CO2, Pó Químico e Espuma."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>O uso do extintor errado pode agravar um incêndio. É fundamental que a equipe da sua empresa saiba identificar a classe do fogo antes de agir.</p>
-                  <h2 className="text-2xl font-bold text-white mt-8 mb-4">Principais Tipos e Usos</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Principais Tipos e Usos</h2>
                   <ul className="list-disc pl-5 space-y-3">
-                    <li><strong className="text-white">Água (Classe A):</strong> Indicado para materiais sólidos como papel, madeira e tecidos. Jamais use em equipamentos elétricos.</li>
-                    <li><strong className="text-white">Pó Químico (Classes B e C):</strong> O mais versátil. Combate líquidos inflamáveis e equipamentos elétricos energizados.</li>
-                    <li><strong className="text-white">CO2 (Classes B e C):</strong> Gás inerte que não deixa resíduos. Ideal para salas de servidores e painéis elétricos sensíveis.</li>
+                    <li><strong className="text-slate-900">Água (Classe A):</strong> Indicado para materiais sólidos como papel, madeira e tecidos. Jamais use em equipamentos elétricos.</li>
+                    <li><strong className="text-slate-900">Pó Químico (Classes B e C):</strong> O mais versátil. Combate líquidos inflamáveis e equipamentos elétricos energizados.</li>
+                    <li><strong className="text-slate-900">CO2 (Classes B e C):</strong> Gás inerte que não deixa resíduos. Ideal para salas de servidores e painéis elétricos sensíveis.</li>
                   </ul>
-                  <div className="bg-brand-dark/50 p-6 border-l-4 border-brand-orange rounded-r-lg my-8 italic">
-                    <p className="text-white">Dica Técnica: Verifique o manômetro mensalmente. A agulha deve estar sempre na faixa verde.</p>
+                  <div className="bg-white/50 p-6 border-l-4 border-brand-red rounded-r-lg my-8 italic">
+                    <p className="text-slate-900">Dica Técnica: Verifique o manômetro mensalmente. A agulha deve estar sempre na faixa verde.</p>
                   </div>
                 </div>
               }
@@ -2059,11 +2017,11 @@ export default function App() {
               h1="Sinalização de Emergência: O que as ITs Exigem"
               seoDesc="Tudo sobre placas de saída, rotas de fuga e sinalização fotoluminescente conforme as normas do Corpo de Bombeiros de Minas Gerais."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>A sinalização de emergência não é apenas estética; ela salva vidas durante um abandono de área sob fumaça espessa.</p>
-                  <h2 className="text-2xl font-bold text-white mt-8 mb-4">Requisitos da IT 15 (CBMMG)</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Requisitos da IT 15 (CBMMG)</h2>
                   <p>As placas devem ser fotoluminescentes, garantindo visibilidade mesmo na ausência total de luz. O posicionamento deve seguir alturas específicas para placas de saída, extintores e hidrantes.</p>
-                  <h3 className="text-xl font-bold text-white mt-6 mb-2">Tipos de Sinalização:</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mt-6 mb-2">Tipos de Sinalização:</h3>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>Sinalização de Orientação e Salvamento (Saídas).</li>
                     <li>Sinalização de Alerta (Risco de choque, inflamáveis).</li>
@@ -2080,13 +2038,13 @@ export default function App() {
               h1="Hidrante e Mangueira: Prazos e Manutenção"
               seoDesc="Saiba tudo sobre o teste hidrostático de mangueiras de incêndio e a manutenção preventiva do sistema de hidrantes para AVCB."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>Um sistema de hidrantes parado sem manutenção é um risco invisível. O teste hidrostático anual das mangueiras é um dos itens mais cobrados pelo CBMMG.</p>
-                  <h2 className="text-2xl font-bold text-white mt-8 mb-4">O que deve ser verificado?</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">O que deve ser verificado?</h2>
                   <p>Pressão da bomba de incêndio, integridade dos esguichos, lubrificação das válvulas e a dobra correta das mangueiras (vinco ou aduchada).</p>
-                  <div className="bg-zinc-900/50 p-8 rounded-2xl border border-white/5 my-10 text-center">
+                  <div className="bg-zinc-900/50 p-8 rounded-2xl border border-slate-200 my-10 text-center">
                     <p className="text-brand-red font-bold text-3xl mb-4">Atenção!</p>
-                    <p className="text-white">Mangueiras sem teste hidrostático vigente reprovam o AVCB imediatamente.</p>
+                    <p className="text-slate-900">Mangueiras sem teste hidrostático vigente reprovam o AVCB imediatamente.</p>
                   </div>
                 </div>
               }
@@ -2099,14 +2057,14 @@ export default function App() {
               h1="Checklist: Documentação para Regularização no CBMMG"
               seoDesc="Lista completa de documentos e ARTs necessárias para aprovar seu AVCB ou renovar seu CLCB em Minas Gerais."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>A burocracia do sistema INFOSCIP pode ser complexa. Ter os documentos organizados acelera em semanas a emissão do seu certificado.</p>
-                  <h2 className="text-2xl font-bold text-white mt-8 mb-4">Lista Essencial</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Lista Essencial</h2>
                   <ul className="list-disc pl-5 space-y-3">
-                    <li><strong className="text-white">ART de Projeto:</strong> emitido pelo engenheiro projetista.</li>
-                    <li><strong className="text-white">ART de Execução:</strong> caso tenha havido instalação recente.</li>
-                    <li><strong className="text-white">Laudo de Estanqueidade:</strong> necessário se houver sistema de GLP ou Gás Natural.</li>
-                    <li><strong className="text-white">Atestado de Brigada:</strong> comprovante de treinamento dos funcionários (IT 12).</li>
+                    <li><strong className="text-slate-900">ART de Projeto:</strong> emitido pelo engenheiro projetista.</li>
+                    <li><strong className="text-slate-900">ART de Execução:</strong> caso tenha havido instalação recente.</li>
+                    <li><strong className="text-slate-900">Laudo de Estanqueidade:</strong> necessário se houver sistema de GLP ou Gás Natural.</li>
+                    <li><strong className="text-slate-900">Atestado de Brigada:</strong> comprovante de treinamento dos funcionários (IT 12).</li>
                   </ul>
                 </div>
               }
@@ -2119,9 +2077,9 @@ export default function App() {
               h1="PPCI para Indústrias: Proteção de Grandes Áreas"
               seoDesc="Como elaborar e aprovar o Plano de Prevenção Contra Incêndio (PPCI) para indústrias e galpões logísticos."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>Indústrias possuem cargas de incêndio elevadas e riscos peculiares (produtos químicos, máquinas térmicas). O projeto deve ser preciso.</p>
-                  <h2 className="text-2xl font-bold text-white mt-8 mb-4">Foco na IT 19 e IT 20</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Foco na IT 19 e IT 20</h2>
                   <p>O dimensionamento de reservas de incêndio e a distância entre saídas de emergência em galpões de grandes vãos exigem cálculos de engenharia complexos que a FIREX domina.</p>
                 </div>
               }
@@ -2134,9 +2092,9 @@ export default function App() {
               h1="Laudo de Estanqueidade: Teste de Pressão em Gás"
               seoDesc="Tudo sobre a obrigatoriedade do laudo de estanqueidade de gás para aprovação do AVCB em condomínios e restaurantes."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>Vazamentos de gás são causas frequentes de explosões. O laudo atesta que a tubulação não possui vazamentos sob pressão monitorada.</p>
-                  <h2 className="text-2xl font-bold text-white mt-8 mb-4">Validade e Exigência</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Validade e Exigência</h2>
                   <p>Geralmente exigido a cada 12 meses para renovação de AVCB em locais com central de GLP ou Gás Encanado. A FIREX utiliza manômetros calibrados para garantir o teste real.</p>
                 </div>
               }
@@ -2149,9 +2107,9 @@ export default function App() {
               h1="Formação de Brigada de Incêndio em Montes Claros"
               seoDesc="Curso de brigada de incêndio conforme a IT 12 do CBMMG. Treinamento teórico e prático para sua equipe."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>Equipamentos de incêndio não funcionam sozinhos. Pessoas treinadas são o elo mais importante da corrente de segurança.</p>
-                  <h2 className="text-2xl font-bold text-white mt-8 mb-4">Conteúdo do Treinamento</h2>
+                  <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Conteúdo do Treinamento</h2>
                   <p>Primeiros socorros, combate a princípios de incêndio, uso de extintores e plano de evacuação de emergência.</p>
                 </div>
               }
@@ -2164,10 +2122,10 @@ export default function App() {
               h1="O Síndico e a Responsabilidade Civil/Criminal"
               seoDesc="As implicações legais para síndicos que negligenciam o AVCB ou a manutenção dos sistemas de incêndio do condomínio."
               content={
-                <div className="space-y-6 text-zinc-400 font-light leading-relaxed">
+                <div className="space-y-6 text-slate-900 font-normal leading-relaxed">
                   <p>O Código Civil é claro: o síndico responde pela conservação das partes comuns. Negligenciar o AVCB pode gerar responsabilização pessoal em sinistros.</p>
                   <div className="bg-brand-red/10 p-6 border-l-4 border-brand-red rounded-r-lg my-8">
-                    <p className="text-white font-medium italic">"A falta de AVCB desconfigura o seguro do condomínio, deixando o síndico vulnerável a processos dos moradores."</p>
+                    <p className="text-slate-900 font-medium italic">"A falta de AVCB desconfigura o seguro do condomínio, deixando o síndico vulnerável a processos dos moradores."</p>
                   </div>
                 </div>
               }
