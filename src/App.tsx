@@ -181,10 +181,10 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
                     onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-                    className="flex flex-col items-center justify-center gap-3 p-6 bg-brand-red/10 border border-brand-red/20 rounded-xl text-white"
+                    className="flex flex-col items-center justify-center gap-3 p-6 bg-brand-red/10 border border-brand-red/20 rounded-xl text-slate-900"
                   >
                     <Phone className="w-6 h-6 text-brand-red" />
-                    <span className="text-xs uppercase tracking-widest font-bold">WhatsApp</span>
+                    <span className="text-xs uppercase tracking-widest font-bold text-slate-900">WhatsApp</span>
                   </motion.button>
 
                   <motion.button
@@ -263,39 +263,38 @@ const Hero = () => (
       />
     </div>
 
-    <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 pt-20">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-        className="max-w-5xl"
-      >
-        <div className="flex items-center gap-4 mb-8">
-          <div className="h-px w-12 bg-brand-red" />
-          <span className="tech-label">
-            Autoridade Técnica Regional em MG
-          </span>
-        </div>
-        <h1 className="hero-title mb-10 text-gradient">
-          Engenharia de precisão <br /> e Projetos contra <br /> Incêndio (PPCI).
-        </h1>
-        <p className="text-lg md:text-xl text-slate-900 max-w-2xl mb-14 leading-relaxed font-normal">
-          Especialistas em AVCB, Projetos Técnicos e regularização normativa de alto padrão.
-          Segurança técnica e conformidade jurídica para o setor industrial e corporativo.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-8">
-          <button
-            onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-            className="group flex items-center gap-6 px-12 py-6 bg-brand-red text-white text-sm uppercase tracking-[0.3em] font-bold hover:bg-brand-ember transition-all duration-700 glow-subtle"
-          >
-            Solicitar Análise Técnica
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-3 transition-transform" />
-          </button>
-          <button className="px-12 py-6 border border-white/10 text-slate-900 text-sm uppercase tracking-[0.3em] font-bold hover:bg-white/5 transition-all duration-500">
-            Nossa Expertise
-          </button>
-        </div>
-      </motion.div>
+    <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 w-full">
+      <div className="flex flex-col items-center lg:items-start text-center lg:text-left pt-20">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl"
+        >
+          <span className="tech-label mb-6 block drop-shadow-sm px-2">Engenharia de Segurança contra Incêndio</span>
+          <h1 className="hero-title mb-8 text-gradient">
+            PPCI. AVCB. <br /> Segurança <br /> <span className="text-brand-red">sem Cortes.</span>
+          </h1>
+          <p className="text-slate-800 text-lg md:text-2xl mb-12 font-normal leading-relaxed max-w-3xl px-2">
+            Projetos técnicos, execução de instalações e renovação de AVCB/CLCB com agilidade normativa e rigor de engenharia em Montes Claros e região.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto">
+            <button
+              onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
+              className="btn-fire px-12 py-5 text-white text-xs uppercase tracking-widest font-bold w-full sm:w-auto min-h-[50px] flex items-center justify-center"
+            >
+              Falar com Engenheiro Responsável
+            </button>
+            <button
+              onClick={() => document.getElementById('expertise')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-12 py-5 border border-slate-300 text-slate-800 text-xs uppercase tracking-widest font-bold hover:bg-slate-50 transition-all w-full sm:w-auto min-h-[50px] flex items-center justify-center bg-white/50 backdrop-blur-sm"
+            >
+              Nossa Expertise
+            </button>
+          </div>
+        </motion.div>
+      </div>
     </div>
   </section>
 );
@@ -355,33 +354,28 @@ const RiskAssessmentTool = () => {
   };
 
   return (
-    <section className="py-40 bg-white relative overflow-hidden tech-grid-subtle">
-      <div className="max-w-4xl mx-auto px-6 lg:px-12 relative z-10">
-        <div className="text-center mb-20">
-          <span className="text-brand-red text-xs uppercase tracking-[0.4em] font-bold mb-6 block">Ferramenta de Diagnóstico</span>
-          <h2 className="text-4xl md:text-6xl font-bold text-gradient mb-8">Simulador de AVCB.</h2>
-          <p className="text-slate-800 font-normal">Descubra o provável enquadramento da sua edificação em poucos cliques.</p>
+    <section className="py-24 md:py-40 bg-white relative overflow-hidden tech-grid-subtle">
+      <div className="max-w-4xl mx-auto px-4 md:px-12 relative z-10">
+        <div className="text-center mb-16 md:mb-20">
+          <span className="text-brand-gold text-xs uppercase tracking-[0.4em] font-bold mb-4 block">Ferramenta de Diagnóstico</span>
+          <h2 className="text-3xl md:text-6xl font-bold text-gradient mb-6">Simulador de AVCB.</h2>
+          <p className="text-slate-800 font-normal text-base md:text-lg px-4">Descubra o provável enquadramento da sua edificação em poucos cliques.</p>
         </div>
 
-        <div className="glass-surface p-12 rounded-3xl premium-border relative overflow-hidden">
-          {/* Subtle Background Image */}
-          <div className="absolute inset-0 z-0 opacity-[0.20] pointer-events-none">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800&h=800&grayscale=true" alt="" className="w-full h-full object-cover" />
-          </div>
-
+        <div className="glass-surface p-6 md:p-12 rounded-3xl premium-border relative overflow-hidden">
           <div className="relative z-10">
             {step === 1 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h3 className="text-xl font-bold text-slate-900 mb-8 text-center">Qual o tipo da sua edificação?</h3>
-                <div className="grid grid-cols-2 gap-6">
+                <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-8 text-center px-2">Qual o tipo da sua edificação?</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                   {types.map((t) => (
                     <button
                       key={t.id}
                       onClick={() => { setData({ ...data, type: t.id }); setStep(2); }}
-                      className="p-8 border border-slate-200 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group text-center"
+                      className="p-6 md:p-8 border border-slate-200 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group text-center rounded-xl"
                     >
-                      <t.icon className="w-8 h-8 text-brand-red mx-auto mb-4 group-hover:text-brand-red transition-colors" />
-                      <span className="text-base uppercase tracking-widest font-bold text-slate-900 group-hover:text-slate-900">{t.label}</span>
+                      <t.icon className="w-6 h-6 md:w-8 md:h-8 text-brand-red mx-auto mb-4 group-hover:scale-110 transition-transform" />
+                      <span className="text-sm md:text-base uppercase tracking-widest font-bold text-slate-900">{t.label}</span>
                     </button>
                   ))}
                 </div>
@@ -390,65 +384,69 @@ const RiskAssessmentTool = () => {
 
             {step === 2 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h3 className="text-xl font-bold text-slate-900 mb-8 text-center">Qual a área total construída?</h3>
+                <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-8 text-center">Qual a área total construída?</h3>
                 <div className="space-y-4">
                   {areas.map((a) => (
                     <button
                       key={a.id}
                       onClick={() => { setData({ ...data, area: a.id }); setStep(3); }}
-                      className="w-full p-8 border border-slate-200 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group flex justify-between items-center text-left"
+                      className="w-full p-6 md:p-8 border border-slate-200 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group flex justify-between items-center text-left rounded-xl"
                     >
-                      <div>
-                        <div className="text-slate-900 font-bold mb-1">{a.label}</div>
-                        <div className="text-base text-slate-800 uppercase tracking-widest">{a.desc}</div>
+                      <div className="pr-4">
+                        <div className="text-slate-900 font-bold mb-1 text-base md:text-lg">{a.label}</div>
+                        <div className="text-xs md:text-base text-slate-800 uppercase tracking-widest leading-tight">{a.desc}</div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-brand-red group-hover:text-brand-red group-hover:translate-x-2 transition-all" />
+                      <ArrowRight className="w-5 h-5 text-brand-red flex-shrink-0 group-hover:translate-x-2 transition-transform" />
                     </button>
                   ))}
                 </div>
-                <button onClick={() => setStep(1)} className="mt-8 text-xs uppercase tracking-widest text-slate-900 hover:text-slate-900 transition-colors">â† Voltar</button>
+                <button onClick={() => setStep(1)} className="mt-8 text-xs uppercase tracking-widest text-slate-900 hover:text-brand-red transition-colors flex items-center gap-2 mx-auto md:mx-0">
+                  <ArrowRight className="w-3 h-3 rotate-180" /> Voltar
+                </button>
               </motion.div>
             )}
 
             {step === 3 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <h3 className="text-xl font-bold text-slate-900 mb-8 text-center">Qual a altura da edificação?</h3>
+                <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-8 text-center">Qual a altura da edificação?</h3>
                 <div className="space-y-4">
                   {heights.map((h) => (
                     <button
                       key={h.id}
                       onClick={() => { setData({ ...data, height: h.id }); setStep(4); }}
-                      className="w-full p-8 border border-slate-200 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group flex justify-between items-center text-left"
+                      className="w-full p-6 md:p-8 border border-slate-200 bg-white/[0.01] hover:bg-brand-red/10 hover:border-brand-red/50 transition-all group flex justify-between items-center text-left rounded-xl"
                     >
-                      <div>
-                        <div className="text-slate-900 font-bold mb-1">{h.label}</div>
-                        <div className="text-base text-slate-800 uppercase tracking-widest">{h.desc}</div>
+                      <div className="pr-4">
+                        <div className="text-slate-900 font-bold mb-1 text-base md:text-lg">{h.label}</div>
+                        <div className="text-xs md:text-base text-slate-800 uppercase tracking-widest leading-tight">{h.desc}</div>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-brand-red group-hover:text-brand-red group-hover:translate-x-2 transition-all" />
+                      <ArrowRight className="w-5 h-5 text-brand-red flex-shrink-0 group-hover:translate-x-2 transition-transform" />
                     </button>
                   ))}
                 </div>
-                <button onClick={() => setStep(2)} className="mt-8 text-xs uppercase tracking-widest text-slate-900 hover:text-slate-900 transition-colors">â† Voltar</button>
+                <button onClick={() => setStep(2)} className="mt-8 text-xs uppercase tracking-widest text-slate-900 hover:text-brand-red transition-colors flex items-center gap-2 mx-auto md:mx-0">
+                  <ArrowRight className="w-3 h-3 rotate-180" /> Voltar
+                </button>
               </motion.div>
             )}
 
             {step === 4 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
-                <div className="w-20 h-20 bg-brand-red/20 rounded-full flex items-center justify-center mx-auto mb-8">
-                  <ShieldCheck className="w-10 h-10 text-brand-red" />
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-brand-red/10 rounded-full flex items-center justify-center mx-auto mb-8">
+                  <ShieldCheck className="w-8 h-8 md:w-10 md:h-10 text-brand-red" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-6">Resultado Preliminar</h3>
-                <p className="text-slate-900 text-lg font-normal leading-relaxed mb-12">
+                <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-6 px-2">Resultado Preliminar</h3>
+                <p className="text-slate-900 text-base md:text-lg font-normal leading-relaxed mb-12 px-2">
                   {getResult()}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center px-2">
                   <button
                     onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-                    className="px-12 py-4 bg-brand-red text-white text-xs uppercase tracking-widest font-bold hover:bg-brand-ember transition-all"
+                    className="w-full sm:w-auto px-10 py-5 bg-brand-red text-white text-xs uppercase tracking-widest font-bold hover:bg-brand-ember transition-all rounded-full flex items-center justify-center"
                   >
                     Validar com Engenheiro
                   </button>
-                  <button onClick={() => setStep(1)} className="px-12 py-4 border border-white/10 text-slate-900 text-xs uppercase tracking-widest font-bold hover:bg-white/5 transition-all">
+                  <button onClick={() => setStep(1)} className="w-full sm:w-auto px-10 py-5 border border-slate-300 text-slate-900 text-xs uppercase tracking-widest font-bold hover:bg-slate-50 transition-all rounded-full flex items-center justify-center">
                     Reiniciar
                   </button>
                 </div>
@@ -522,49 +520,49 @@ const ProcessTimeline = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-        <div className="flex flex-col lg:flex-row justify-between items-end mb-32 gap-12">
+        <div className="flex flex-col lg:flex-row justify-between items-center lg:items-end mb-16 md:mb-32 gap-10 md:gap-12 text-center lg:text-left">
           <div className="max-w-2xl">
             <span className="text-brand-red text-xs uppercase tracking-[0.4em] font-bold mb-6 block">Metodologia de Aprovação</span>
-            <h2 className="text-5xl md:text-7xl font-bold text-slate-900 leading-[1.0]">
+            <h2 className="hero-title text-slate-900">
               Jornada da <br /> <span className="text-gradient">Conformidade.</span>
             </h2>
           </div>
-          <p className="text-slate-800 max-w-sm text-lg font-normal leading-relaxed">
-            Um processo estruturado para garantir que sua edificação transite do risco Ã  certificação total com agilidade técnica.
+          <p className="text-slate-800 max-w-sm text-base md:text-lg font-normal leading-relaxed">
+            Um processo estruturado para garantir que sua edificação transite do risco à certificação total com agilidade técnica.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-px bg-white/5 border border-slate-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200 border border-slate-200 overflow-hidden rounded-2xl">
           {steps.map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.2 }}
+              transition={{ delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="relative p-12 bg-white hover:bg-white/[0.02] transition-all duration-700 group overflow-hidden"
+              className="relative p-10 md:p-12 bg-white hover:bg-slate-50 transition-all duration-500 group overflow-hidden"
             >
               {/* Step Number Background */}
-              <span className="absolute -bottom-4 -right-4 text-9xl font-bold text-slate-900/[0.02] group-hover:text-slate-900/[0.05] transition-all duration-700 select-none">
+              <span className="absolute -bottom-4 -right-4 text-9xl font-bold text-slate-900/[0.03] group-hover:text-slate-900/[0.08] transition-all duration-700 select-none">
                 {item.step}
               </span>
 
               <div className="relative z-10">
-                <div className={`w-12 h-12 mb-10 flex items-center justify-center border border-white/10 group-hover:border-${item.color}/50 transition-all duration-500`}>
-                  <item.icon className={`w-5 h-5 text-slate-800 group-hover:text-${item.color === 'brand-red' ? 'brand-red' : 'brand-gold'} transition-colors`} />
+                <div className={`w-12 h-12 mb-8 flex items-center justify-center border border-slate-200 group-hover:border-brand-red transition-all duration-500 rounded-lg`}>
+                  <item.icon className={`w-5 h-5 text-brand-red`} />
                 </div>
 
-                <h3 className="text-2xl font-bold text-slate-900 mb-6 leading-tight group-hover:translate-x-2 transition-transform duration-500">
+                <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-6 leading-tight">
                   {item.title}
                 </h3>
 
-                <p className="text-slate-800 text-base font-normal leading-relaxed mb-12">
+                <p className="text-slate-800 text-sm md:text-base font-normal leading-relaxed mb-10">
                   {item.desc}
                 </p>
 
                 <div className="flex items-center gap-4">
-                  <div className={`h-px w-8 bg-zinc-800 group-hover:w-16 group-hover:bg-${item.color === 'brand-red' ? 'brand-red' : 'brand-gold'} transition-all duration-700`} />
-                  <span className="text-xs uppercase tracking-widest text-zinc-700 group-hover:text-slate-900 transition-colors">Fase {item.step}</span>
+                  <div className={`h-px w-8 bg-brand-red/30 group-hover:w-12 group-hover:bg-brand-red transition-all duration-500`} />
+                  <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Fase {item.step}</span>
                 </div>
               </div>
             </motion.div>
@@ -576,23 +574,23 @@ const ProcessTimeline = () => {
 };
 
 const ServiceItem = ({ icon: Icon, title, desc, features, bgImage }: any) => (
-  <div className="p-16 bg-white hover:bg-white/[0.02] transition-all duration-700 group flex flex-col h-full relative overflow-hidden border border-slate-200">
+  <div className="p-8 md:p-16 bg-white hover:bg-white/[0.02] transition-all duration-700 group flex flex-col h-full relative overflow-hidden border border-slate-200 rounded-2xl md:rounded-none">
     {/* Background Image on Hover */}
     <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-20 transition-opacity duration-1000">
       <img loading="lazy" src={bgImage} alt="" className="w-full h-full object-cover scale-110 group-hover:scale-100 grayscale hover:grayscale-0 transition-all duration-1000" />
     </div>
 
     <div className="relative z-10">
-      <div className="w-16 h-16 mb-12 flex items-center justify-center border border-slate-200 group-hover:border-brand-red/50 transition-all duration-700 bg-slate-50">
-        <Icon className="w-8 h-8 text-brand-red group-hover:scale-110 transition-all" />
+      <div className="w-14 h-14 md:w-16 md:h-16 mb-8 md:mb-12 flex items-center justify-center border border-slate-200 group-hover:border-brand-red/50 transition-all duration-700 bg-slate-50 rounded-lg">
+        <Icon className="w-7 h-7 md:w-8 md:h-8 text-brand-red group-hover:scale-110 transition-all" />
       </div>
-      <h3 className="text-3xl font-bold mb-8 text-slate-900 leading-tight group-hover:text-brand-red transition-colors">{title}</h3>
-      <p className="text-slate-800 text-base leading-relaxed mb-12 font-normal flex-grow">{desc}</p>
-      <div className="space-y-4">
+      <h3 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-slate-900 leading-tight group-hover:text-brand-red transition-colors">{title}</h3>
+      <p className="text-slate-800 text-sm md:text-base leading-relaxed mb-8 md:mb-12 font-normal flex-grow">{desc}</p>
+      <div className="space-y-3 md:space-y-4">
         {features.map((f: string, i: number) => (
-          <div key={i} className="flex items-center gap-4">
+          <div key={i} className="flex items-center gap-3">
             <div className="w-1.5 h-1.5 bg-brand-red rounded-full" />
-            <span className="text-xs text-slate-900 uppercase tracking-[0.2em] font-bold">{f}</span>
+            <span className="text-[10px] md:text-xs text-slate-900 uppercase tracking-[0.2em] font-bold">{f}</span>
           </div>
         ))}
       </div>
@@ -645,19 +643,19 @@ const Services = () => (
     </motion.div>
 
     <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-      <div className="flex flex-col lg:flex-row justify-between items-end mb-32 gap-12">
+      <div className="flex flex-col lg:flex-row justify-between items-center lg:items-end mb-16 md:mb-32 gap-10 md:gap-12 text-center lg:text-left">
         <div className="max-w-3xl">
           <span className="tech-label mb-6 block">Soluções de Engenharia</span>
           <h2 className="hero-title text-gradient">
             Rigor Técnico. <br /> Aprovação Ágil.
           </h2>
         </div>
-        <p className="text-slate-800 max-w-md text-lg leading-relaxed font-normal">
+        <p className="text-slate-800 max-w-md text-base md:text-lg leading-relaxed font-normal">
           Desenvolvemos projetos técnicos que equilibram rigor normativo e viabilidade operacional, garantindo aprovação ágil e segurança jurídica total.
         </p>
       </div>
 
-      <div className="precision-grid lg:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 border border-slate-200 overflow-hidden rounded-2xl shadow-sm">
         <ServiceItem
           icon={FileText}
           title="Projeto Técnico AVCB"

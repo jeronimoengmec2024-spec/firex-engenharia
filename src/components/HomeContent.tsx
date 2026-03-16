@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ShieldCheck, AlertTriangle, CheckCircle2, ArrowRight } from 'lucide-react';
+import { ShieldCheck, AlertTriangle, ArrowRight } from 'lucide-react';
 
 export const HomeContent = () => {
   return (
-    <section className="py-40 bg-white relative overflow-hidden tech-grid-subtle">
+    <section className="py-24 md:py-40 bg-white relative overflow-hidden tech-grid-subtle">
       {/* Background Decorative Technical Visual: Alarms & Detection */}
       <div className="absolute top-0 left-0 w-full h-full opacity-[0.20] pointer-events-none z-0 overflow-hidden">
         <img
@@ -15,123 +15,77 @@ export const HomeContent = () => {
       </div>
 
       <div className="max-w-4xl mx-auto px-6 lg:px-12 relative z-10">
-        <div className="max-w-none">
+        <div className="max-w-none text-center md:text-left">
           <span className="tech-label mb-8 block">Guia de Regularização</span>
-          <h2 className="hero-title mb-16 text-gradient leading-[1.0] text-4xl md:text-6xl text-left">
+          <h2 className="hero-title mb-16 text-gradient leading-[1.1] text-left">
             AVCB e Alvará em Montes Claros MG.
           </h2>
 
-          <p className="text-2xl text-slate-800 font-normal leading-relaxed mb-20 border-l-4 border-brand-red pl-8">
-            Se você possui uma empresa, condomínio ou indústria, a regularização junto ao Corpo de Bombeiros não é apenas uma obrigação legal, mas uma garantia de segurança para vidas e patrimônio. Neste guia, a <strong>Firex Engenharia</strong> detalha o processo de <strong>AVCB em Montes Claros</strong>.
-          </p>
-
-          <div className="p-16 bg-slate-50 border border-slate-200 mb-20 relative group overflow-hidden shadow-sm">
-            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-              <ShieldCheck size={120} className="text-brand-red" />
-            </div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-6 uppercase tracking-wider">O que é AVCB?</h3>
-            <p className="text-slate-800 font-normal leading-relaxed m-0 text-xl">
-              O <strong>AVCB (Auto de Vistoria do Corpo de Bombeiros)</strong> é o documento oficial que certifica as condições de segurança contra incêndio e pânico. É o resultado de um processo rigoroso de engenharia e conformidade técnica.
+          <div className="prose prose-lg max-w-none text-slate-800 space-y-12 font-normal leading-relaxed text-justify md:text-left">
+            <p className="text-xl md:text-2xl font-bold text-slate-900 border-l-4 border-brand-red pl-6 py-2">
+              Sua empresa está segura e em dia com o Corpo de Bombeiros?
             </p>
-          </div>
 
-          <h3 className="hero-title text-4xl mb-12 text-slate-900">O que é Alvará?</h3>
-          <p className="text-slate-800 font-normal leading-relaxed mb-20 text-xl">
-            O <strong>Alvará do Corpo de Bombeiros</strong> é a licença de funcionamento sob a ótica da segurança contra incêndio. Em Minas Gerais, materializa-se através do AVCB ou do CLCB. Sem este documento, o estabelecimento está irregular e sujeito a sanções graves.
-          </p>
+            <p className="text-lg md:text-xl">
+              A regularização de uma edificação não é apenas uma obrigação legal, mas uma garantia de segurança técnica e patrimonial. Em Minas Gerais, o processo é regido pelo Decreto Estadual 47.998/2020 e pelas Instruções Técnicas (ITs) do CBMMG.
+            </p>
 
-          <div className="precision-grid md:grid-cols-2 mb-20">
-            <div className="p-12 border border-slate-200 bg-white hover:bg-slate-50 transition-all">
-              <h3 className="text-2xl font-bold text-slate-900 mb-8 border-b border-slate-200 pb-4">Conformidade Técnica</h3>
-              <ul className="space-y-6 text-slate-700 text-base font-normal">
-                <li className="flex gap-4">
-                  <div className="w-1.5 h-1.5 bg-brand-red mt-2 flex-shrink-0" />
-                  <span><strong className="text-slate-900">AVCB:</strong> Para edificações acima de 750m² ou riscos elevados. Exige PT completo.</span>
-                </li>
-                <li className="flex gap-4">
-                  <div className="w-1.5 h-1.5 bg-brand-red mt-2 flex-shrink-0" />
-                  <span><strong className="text-slate-900">CLCB:</strong> Para baixo risco e menor área (PTS). Processo simplificado, mas com mesmo rigor.</span>
-                </li>
-              </ul>
+            <div className="grid md:grid-cols-2 gap-12 not-prose">
+              <div className="p-8 bg-slate-50 border border-slate-200 rounded-xl">
+                <h3 className="text-brand-red font-bold text-xl mb-4 text-left">AVCB: O que é?</h3>
+                <p className="text-base text-slate-800 text-left m-0">O Auto de Vistoria do Corpo de Bombeiros é o documento que certifica que a edificação possui as condições de segurança contra incêndio previstas por lei.</p>
+              </div>
+              <div className="p-8 bg-slate-50 border border-slate-200 rounded-xl">
+                <h3 className="text-brand-red font-bold text-xl mb-4 text-left">CLCB: O que é?</h3>
+                <p className="text-base text-slate-800 text-left m-0">O Certificado de Licenciamento do Corpo de Bombeiros é voltado para edificações de baixo risco, com processo simplificado de emissão.</p>
+              </div>
             </div>
-            <div className="p-12 border border-slate-200 bg-white hover:bg-slate-50 transition-all">
-              <h3 className="text-2xl font-bold text-brand-red mb-8 border-b border-brand-red/10 pb-4">Riscos e Penalidades</h3>
-              <ul className="space-y-4 text-slate-800 text-base uppercase tracking-widest font-bold">
-                <li className="flex items-center gap-3">
-                  <AlertTriangle className="text-brand-red w-5 h-5" />
-                  Multas Elevadas
-                </li>
-                <li className="flex items-center gap-3">
-                  <AlertTriangle className="text-brand-red w-5 h-5" />
-                  Interdição Imediata
-                </li>
-                <li className="flex items-center gap-3">
-                  <AlertTriangle className="text-brand-red w-5 h-5" />
-                  Perda de Seguro
-                </li>
-                <li className="flex items-center gap-3">
-                  <AlertTriangle className="text-brand-red w-5 h-5" />
-                  Responsabilidade Criminal
-                </li>
-              </ul>
-            </div>
-          </div>
 
-          <h3 className="hero-title text-4xl mb-12 text-slate-900 uppercase">Processo de Regularização</h3>
-          <p className="text-slate-800 font-normal leading-relaxed mb-12 text-xl">
-            A regularização segue marcos técnicos definidos pelo CBMMG:
-          </p>
-
-          <div className="space-y-4 mb-20">
-            {[
-              { step: "01", title: "Diagnóstico Técnico", desc: "Levantamento inicial conforme ITs do Bombeiro MG." },
-              { step: "02", title: "Projeto Engenharia", desc: "Dimensionamento de sistemas e saídas de emergência." },
-              { step: "03", title: "INFOSCIP MG", desc: "Protocolo digital de análise oficial do projeto." },
-              { step: "04", title: "Fase de Execução", desc: "Instalação física de equipamentos e sinalização." },
-              { step: "05", title: "Vistoria Final", desc: "Conferência técnica e emissão do documento oficial." }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-12 p-8 border border-slate-200 bg-slate-50/50 hover:bg-white transition-all group shadow-sm">
-                <span className="text-brand-red font-display font-bold text-4xl opacity-30 group-hover:opacity-100 transition-opacity">{item.step}</span>
-                <div>
-                  <h4 className="text-slate-900 font-bold text-2xl mb-2">{item.title}</h4>
-                  <p className="text-slate-700 text-lg font-normal leading-relaxed m-0">{item.desc}</p>
+            <div className="bg-slate-900 text-white p-10 md:p-16 rounded-3xl relative overflow-hidden group not-prose">
+              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+                <div className="text-center md:text-left">
+                  <h3 className="text-2xl md:text-4xl font-bold mb-4">Evite Multas e Interdições.</h3>
+                  <p className="text-zinc-400 text-base md:text-lg">Realizamos o levantamento completo, projeto e protocolo no INFOSCIP.</p>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="p-16 border border-slate-200 bg-slate-50 mb-20 relative overflow-hidden">
-            <div className="absolute bottom-0 right-0 w-32 h-32 bg-brand-red/5 blur-3xl opacity-20" />
-            <h3 className="text-2xl font-bold text-slate-800 mb-10 text-center uppercase tracking-[0.3em]">Excellence Fire Engineering</h3>
-            <div className="grid sm:grid-cols-2 gap-12">
-              <div className="flex gap-6">
-                <CheckCircle2 className="text-brand-red w-7 h-7 flex-shrink-0" />
-                <p className="text-slate-800 text-base m-0 leading-relaxed font-bold tracking-tight">Especialistas em INFOSCIP de alta complexidade.</p>
-              </div>
-              <div className="flex gap-6">
-                <CheckCircle2 className="text-brand-red w-7 h-7 flex-shrink-0" />
-                <p className="text-slate-800 text-base m-0 leading-relaxed font-bold tracking-tight">Rigor Normativo Inegociável.</p>
+                <button
+                  onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
+                  className="w-full md:w-auto px-10 py-5 bg-brand-red hover:bg-brand-ember text-white rounded-full font-bold uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-3 whitespace-nowrap"
+                >
+                  Falar com Especialista
+                  <ArrowRight className="w-5 h-5" />
+                </button>
               </div>
             </div>
-          </div>
 
-          <div className="text-center pt-20 border-t border-slate-200">
-            <h3 className="hero-title text-5xl mb-12 text-slate-900">Solicite uma ART.</h3>
-            <p className="text-slate-800 mb-16 max-w-2xl mx-auto text-xl font-normal leading-relaxed">
-              Assinamos tecnicamente por sua segurança. Entre em contato com nossa equipe de engenharia hoje mesmo.
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-              className="btn-fire px-16 py-8 rounded-none font-bold uppercase tracking-[0.4em] text-xs transition-all border border-brand-red group"
-            >
-              Falar com Engenheiro Responsável
-            </motion.button>
+            <div className="precision-grid grid-cols-1 md:grid-cols-2 gap-px mt-20 not-prose overflow-hidden rounded-2xl border border-slate-200">
+              <div className="p-10 bg-white">
+                <h3 className="text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-4 uppercase tracking-wider">Conformidade Técnica</h3>
+                <ul className="space-y-4">
+                  <li className="flex gap-4 items-start">
+                    <div className="w-1.5 h-1.5 bg-brand-red mt-2 flex-shrink-0" />
+                    <span className="text-sm md:text-base"><strong className="text-slate-900">AVCB:</strong> Para riscos elevados ou grandes áreas.</span>
+                  </li>
+                  <li className="flex gap-4 items-start">
+                    <div className="w-1.5 h-1.5 bg-brand-red mt-2 flex-shrink-0" />
+                    <span className="text-sm md:text-base"><strong className="text-slate-900">CLCB:</strong> Processo simplificado para baixo risco.</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="p-10 bg-slate-50">
+                <h3 className="text-xl font-bold text-brand-red mb-6 border-b border-brand-red/10 pb-4 uppercase tracking-wider">Penalidades</h3>
+                <ul className="space-y-3">
+                  {['Multas Elevadas', 'Interdição', 'Perda de Seguro', 'Criminal'].map((risk) => (
+                    <li key={risk} className="flex items-center gap-3 text-xs md:text-sm font-bold uppercase tracking-widest text-slate-800">
+                      <AlertTriangle className="text-brand-red w-4 h-4" />
+                      {risk}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
-
   );
 };
