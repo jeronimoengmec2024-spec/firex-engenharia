@@ -98,7 +98,7 @@ const Navbar = () => {
                 <span className="text-brand-red">FIRE</span>
                 <span className="text-brand-red">X</span>
               </span>
-              <span className="tech-label text-[10px] mt-1 opacity-70">Engenharia de Combate a Incêndio</span>
+              <span className="tech-label text-xs mt-2 opacity-70 hidden md:block">Engenharia de Combate a Incêndio</span>
             </div>
           </Link>
 
@@ -241,10 +241,9 @@ const Hero = () => (
   <section className="relative min-h-screen flex items-center overflow-hidden bg-white tech-grid-subtle">
     <div className="absolute inset-0 z-0">
       <img
-        src="https://images.unsplash.com/photo-1583907608920-9418311a7f6c?auto=format&fit=crop&q=80&w=2000"
-        alt="Extintor e Equipamento PPCI Profissional"
-        className="w-full h-full object-cover opacity-70"
-        referrerPolicy="no-referrer"
+        src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1920&h=1080&grayscale=true"
+        className="w-full h-full object-cover opacity-30 grayscale"
+        alt="Fire Engineering Background"
       />
       <div className="industrial-overlay" />
     </div>
@@ -255,46 +254,43 @@ const Hero = () => (
     <FloatingElement delay={1} className="top-1/2 right-1/4" />
 
     {/* Background Decorative Elements */}
-    <div className="absolute top-0 left-0 w-full h-full opacity-[0.30] pointer-events-none z-0">
-      <img
-        src="/images/fire_extinguisher_wall.png"
-        alt="Equipamentos PPCI Elegantes"
-        className="absolute top-1/4 left-10 w-[40vw] h-auto grayscale"
-      />
-    </div>
-
-    <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 w-full">
-      <div className="flex flex-col items-center lg:items-start text-center lg:text-left pt-20">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-4xl"
-        >
-          <span className="tech-label mb-6 block drop-shadow-sm px-2">Engenharia de Segurança contra Incêndio</span>
-          <h1 className="hero-title mb-8 text-gradient">
-            PPCI. AVCB. <br /> Segurança <br /> <span className="text-brand-red">sem Cortes.</span>
-          </h1>
-          <p className="text-slate-800 text-lg md:text-2xl mb-12 font-normal leading-relaxed max-w-3xl px-2">
-            Projetos técnicos, execução de instalações e renovação de AVCB/CLCB com agilidade normativa e rigor de engenharia em Montes Claros e região.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto">
-            <button
-              onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-              className="btn-fire px-12 py-5 text-white text-xs uppercase tracking-widest font-bold w-full sm:w-auto min-h-[50px] flex items-center justify-center"
-            >
-              Falar com Engenheiro Responsável
-            </button>
-            <button
-              onClick={() => document.getElementById('expertise')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-12 py-5 border border-slate-300 text-slate-800 text-xs uppercase tracking-widest font-bold hover:bg-slate-50 transition-all w-full sm:w-auto min-h-[50px] flex items-center justify-center bg-white/50 backdrop-blur-sm"
-            >
-              Nossa Expertise
-            </button>
+    <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 pt-32 lg:pt-48 pb-24 lg:pb-56">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="max-w-4xl"
+      >
+        <div className="flex flex-col items-start gap-4 mb-10">
+          <span className="tech-label">Soluções Estratégicas · Montes Claros</span>
+          <div className="bg-brand-red/10 px-4 py-1 border border-brand-red/20 text-[10px] text-brand-red font-bold uppercase tracking-widest">
+            Engenharia de Segurança contra Incêndio
           </div>
-        </motion.div>
-      </div>
+        </div>
+
+        <h1 className="hero-title text-slate-900 mb-12">
+          SEU ALVARÁ.<br />
+          <span className="text-gradient">NOSSA RESPONSABILIDADE.</span>
+        </h1>
+        <p className="text-slate-800 text-lg md:text-2xl mb-12 font-normal leading-relaxed max-w-3xl px-2">
+          Projetos técnicos, execução de instalações e renovação de AVCB/CLCB com agilidade normativa e rigor de engenharia em Montes Claros e região.
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto">
+          <button
+            onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
+            className="btn-fire px-12 py-5 text-white text-xs uppercase tracking-widest font-bold w-full sm:w-auto min-h-[50px] flex items-center justify-center"
+          >
+            Falar com Engenheiro Responsável
+          </button>
+          <button
+            onClick={() => document.getElementById('expertise')?.scrollIntoView({ behavior: 'smooth' })}
+            className="px-12 py-5 border border-slate-300 text-slate-800 text-xs uppercase tracking-widest font-bold hover:bg-slate-50 transition-all w-full sm:w-auto min-h-[50px] flex items-center justify-center bg-white/50 backdrop-blur-sm"
+          >
+            Nossa Expertise
+          </button>
+        </div>
+      </motion.div>
     </div>
   </section>
 );
@@ -329,9 +325,9 @@ const RiskAssessmentTool = () => {
   ];
 
   const areas = [
-    { id: 'small', label: 'Até 200mÂ²', desc: 'Geralmente isento ou PTS' },
-    { id: 'medium', label: '200mÂ² a 750mÂ²', desc: 'Projeto Técnico Simplificado' },
-    { id: 'large', label: 'Acima de 750mÂ²', desc: 'Projeto Técnico Completo' }
+    { id: 'small', label: 'Até 200m²', desc: 'Geralmente isento ou PTS' },
+    { id: 'medium', label: '200m² a 750m²', desc: 'Projeto Técnico Simplificado' },
+    { id: 'large', label: 'Acima de 750m²', desc: 'Projeto Técnico Completo' }
   ];
 
   const heights = [
@@ -348,7 +344,7 @@ const RiskAssessmentTool = () => {
       return "Enquadramento provável em Projeto Técnico Simplificado (PTS). Exige extintores, sinalização e iluminação de emergência. A altura média pode exigir brigada de incêndio.";
     }
     if (data.area === 'large' || data.height === 'high') {
-      return "Enquadramento em Projeto Técnico (PT). Exige sistemas complexos como hidrantes, alarmes e possivelmente sprinklers devido Ã  grande área ou altura elevada.";
+      return "Enquadramento em Projeto Técnico (PT). Exige sistemas complexos como hidrantes, alarmes e possivelmente sprinklers devido à grande área ou altura elevada.";
     }
     return "Enquadramento em Projeto Técnico (PT). Exige sistemas complexos como hidrantes, alarmes e possivelmente sprinklers.";
   };
@@ -875,11 +871,11 @@ const TerminologyExplanation = () => (
             },
             {
               term: "Projeto Técnico",
-              meaning: "É o nome formal dado ao PPCI quando este é submetido Ã  análise do Corpo de Bombeiros. Pode ser Projeto Técnico (PT) ou Projeto Técnico Simplificado (PTS), dependendo da área e do risco."
+              meaning: "É o nome formal dado ao PPCI quando este é submetido à análise do Corpo de Bombeiros. Pode ser Projeto Técnico (PT) ou Projeto Técnico Simplificado (PTS), dependendo da área e do risco."
             },
             {
               term: "Alvará do Corpo de Bombeiros",
-              meaning: "Termo genérico usado para se referir Ã  licença de funcionamento emitida pelo órgão. Na prática, é o documento que comprova que a edificação está regularizada."
+              meaning: "Termo genérico usado para se referir à licença de funcionamento emitida pelo órgão. Na prática, é o documento que comprova que a edificação está regularizada."
             },
             {
               term: "AVCB",
@@ -971,7 +967,7 @@ const AVCBRenewal = () => (
           <span className="text-brand-red text-xs uppercase tracking-[0.4em] font-bold mb-6 block">Continuidade e Segurança</span>
           <h2 className="text-5xl md:text-7xl font-bold text-gradient mb-12 leading-tight">Renovação <br /> de AVCB.</h2>
           <p className="text-slate-800 text-lg font-normal leading-relaxed mb-12">
-            O AVCB não é vitalício. Sua validade varia de 1 a 5 anos dependendo da ocupação e do risco. Operar com o documento vencido expõe sua empresa a multas pesadas, interdições e, principalmente, Ã  perda da cobertura do seguro patrimonial.
+            O AVCB não é vitalício. Sua validade varia de 1 a 5 anos dependendo da ocupação e do risco. Operar com o documento vencido expõe sua empresa a multas pesadas, interdições e, principalmente, à perda da cobertura do seguro patrimonial.
           </p>
 
           <div className="space-y-6">
@@ -1586,7 +1582,7 @@ const Footer = () => (
               <span className="text-brand-red">FIRE</span>
               <span className="text-brand-red">X</span>
             </span>
-            <span className="tech-label text-xs mt-2 opacity-70">Engenharia de Combate a Incêndio</span>
+            <span className="tech-label text-xs mt-2 opacity-70 hidden md:block">Engenharia de Combate a Incêndio</span>
           </div>
           <p className="text-slate-900 text-base leading-relaxed font-normal">
             Referência técnica em engenharia de incêndio no Norte de Minas.
@@ -1652,7 +1648,7 @@ const WhatsAppFAB = () => (
     whileHover={{ scale: 1.1 }}
     whileTap={{ scale: 0.9 }}
     onClick={() => window.open('https://wa.me/5538984056240', '_blank')}
-    className="fixed bottom-8 right-8 z-50 w-16 h-16 bg-green-600 text-slate-900 rounded-full shadow-2xl flex items-center justify-center hover:bg-green-500 transition-colors glow-subtle"
+    className="fixed bottom-20 md:bottom-8 right-8 z-50 w-16 h-16 bg-green-600 text-slate-900 rounded-full shadow-2xl flex items-center justify-center hover:bg-green-500 transition-colors glow-subtle"
     aria-label="Falar conosco no WhatsApp"
   >
     <Phone className="w-8 h-8" />
@@ -1870,7 +1866,7 @@ export default function App() {
               seoDesc="Tudo sobre o CLCB em Minas Gerais. Licenciamento para edificações de baixo risco."
               content={
                 <>
-                  <p>O <strong>CLCB (Certificado de Licenciamento do Corpo de Bombeiros)</strong> é destinado a edificações com área de até 750mÂ² e baixo risco de incêndio.</p>
+                  <p>O <strong>CLCB (Certificado de Licenciamento do Corpo de Bombeiros)</strong> é destinado a edificações com área de até 750m² e baixo risco de incêndio.</p>
                   <h2>Vantagens do CLCB</h2>
                   <p>O processo é simplificado e, em muitos casos, a vistoria pode ser feita por amostragem, agilizando a liberação do documento.</p>
                 </>

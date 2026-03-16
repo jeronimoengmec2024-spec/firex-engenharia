@@ -58,7 +58,7 @@ export const HomeContent = () => {
             </div>
 
             <div className="precision-grid grid-cols-1 md:grid-cols-2 gap-px mt-20 not-prose overflow-hidden rounded-2xl border border-slate-200">
-              <div className="p-10 bg-white">
+              <div className="p-8 md:p-10 bg-white">
                 <h3 className="text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-4 uppercase tracking-wider">Conformidade Técnica</h3>
                 <ul className="space-y-4">
                   <li className="flex gap-4 items-start">
@@ -71,7 +71,7 @@ export const HomeContent = () => {
                   </li>
                 </ul>
               </div>
-              <div className="p-10 bg-slate-50">
+              <div className="p-8 md:p-10 bg-slate-50">
                 <h3 className="text-xl font-bold text-brand-red mb-6 border-b border-brand-red/10 pb-4 uppercase tracking-wider">Penalidades</h3>
                 <ul className="space-y-3">
                   {['Multas Elevadas', 'Interdição', 'Perda de Seguro', 'Criminal'].map((risk) => (
