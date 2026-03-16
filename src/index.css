@@ -60,12 +60,6 @@
       background-image: none !important;
     }
 
-    .blog-card img,
-    [class*="card"] img,
-    img {
-      filter: none !important;
-    }
-
     footer {
       padding-bottom: 40px !important;
     }

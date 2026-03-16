@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'motion/react';
@@ -31,12 +31,12 @@ import {
   ShoppingCart,
   Utensils,
   Activity,
-  Home,
-  Wrench,
   Search,
   PenTool,
   Send,
-  Star
+  Star,
+  Home as HomeIcon,
+  Wrench
 } from 'lucide-react';
 
 import { segmentsData } from './data/segments';
@@ -136,7 +136,6 @@ const Navbar = () => {
           <motion.div
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             className="fixed inset-0 z-[60] bg-white md:hidden flex flex-col"
           >
@@ -239,14 +238,15 @@ const FloatingElement = ({ delay, className }: any) => (
 
 const Hero = () => (
   <section
+    data-bg-section
     className="relative min-h-screen flex items-center overflow-hidden bg-white tech-grid-subtle"
     style={{
-      backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1920&h=1080&grayscale=true")',
+      backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.45)), url("https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1920&h=1080&grayscale=true")',
       backgroundSize: 'cover',
       backgroundPosition: 'center'
     }}
   >
-    <div className="absolute inset-0 z-0 bg-white/30 backdrop-blur-[2px]" />
+    <div className="absolute inset-0 z-0 bg-white/20 backdrop-blur-[1px]" />
     <div className="industrial-overlay" />
 
     {/* Floating Elements */}
@@ -322,7 +322,7 @@ const RiskAssessmentTool = () => {
     { id: 'comercio', label: 'Comércio/Serviços', icon: ShoppingCart },
     { id: 'industria', label: 'Indústria/Logística', icon: Building2 },
     { id: 'saude', label: 'Saúde/Clínicas', icon: Activity },
-    { id: 'residencial', label: 'Condomínio Residencial', icon: Home }
+    { id: 'residencial', label: 'Condomínio Residencial', icon: HomeIcon }
   ];
 
   const areas = [
@@ -489,11 +489,14 @@ const ProcessTimeline = () => {
   ];
 
   return (
-    <section className="py-40 bg-white relative overflow-hidden tech-grid-subtle">
+    <section
+      data-bg-section
+      className="py-40 bg-white relative overflow-hidden tech-grid-subtle"
+    >
       {/* Background Image with Parallax Effect */}
       <motion.div
         initial={{ scale: 1.1, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 0.08 }}
+        whileInView={{ scale: 1, opacity: 0.15 }}
         transition={{ duration: 2.5, ease: "easeOut" }}
         style={{ y: "10%" }}
         className="absolute inset-0 z-0"
@@ -504,7 +507,7 @@ const ProcessTimeline = () => {
           className="w-full h-full object-cover grayscale brightness-125"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-tr from-brand-dark via-brand-dark/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-brand-dark/40 via-brand-dark/20 to-transparent" />
       </motion.div>
 
       {/* Background Decorative Technical Visual: Blueprint */}
@@ -596,15 +599,18 @@ const ServiceItem = ({ icon: Icon, title, desc, features, bgImage }: any) => (
 );
 
 const TechnicalParallax = ({ image, title, subtitle }: any) => (
-  <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+  <section
+    data-bg-section
+    className="relative h-[70vh] flex items-center justify-center overflow-hidden"
+  >
     <motion.div
       initial={{ scale: 1.2 }}
       whileInView={{ scale: 1 }}
       transition={{ duration: 2 }}
       className="absolute inset-0 z-0"
     >
-      <img loading="lazy" src={image} alt="" className="w-full h-full object-cover opacity-20 grayscale" />
-      <div className="absolute inset-0 bg-white/80" />
+      <img loading="lazy" src={image} alt="" className="w-full h-full object-cover opacity-35 grayscale" />
+      <div className="absolute inset-0 bg-white/45" />
     </motion.div>
 
     <div className="relative z-10 text-center px-6">
@@ -622,11 +628,15 @@ const TechnicalParallax = ({ image, title, subtitle }: any) => (
 );
 
 const Services = () => (
-  <section id="servicos" className="py-40 bg-white relative overflow-hidden tech-grid-subtle">
+  <section
+    id="servicos"
+    data-bg-section
+    className="py-40 bg-white relative overflow-hidden tech-grid-subtle"
+  >
     {/* Background Image with Effect */}
     <motion.div
       initial={{ scale: 1.1, opacity: 0 }}
-      whileInView={{ scale: 1, opacity: 0.05 }}
+      whileInView={{ scale: 1, opacity: 0.15 }}
       transition={{ duration: 2 }}
       className="absolute inset-0 z-0"
     >
@@ -636,7 +646,7 @@ const Services = () => (
         className="w-full h-full object-cover grayscale"
         referrerPolicy="no-referrer"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-brand-dark" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-brand-dark/40" />
     </motion.div>
 
     <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
@@ -1428,21 +1438,16 @@ const Segments = ({ onSelectSegment }: any) => {
       title: "Padarias",
       desc: "Segurança para panificadoras e confeitarias. Foco em fornos, central de gás e áreas de produção.",
       icon: Utensils,
-      image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=800&h=400&grayscale=true", // Bakery with safety equipment
+      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800&h=400&grayscale=true", // Realistic apartment building
     },
     {
       id: "condominios",
       title: "Condomínios",
       desc: "Gestão de AVCB para edifícios residenciais e comerciais. Foco em manutenção e segurança dos moradores.",
-      icon: Home,
+      icon: HomeIcon,
       image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800&h=400&grayscale=true", // Realistic apartment building
     }
   ];
-
-  const handleSelect = (segment: any) => {
-    const fullData = segmentsData.find(s => s.id === segment.id) || segment;
-    onSelectSegment({ ...segment, ...fullData });
-  };
 
   return (
     <section id="segmentos" className="py-40 bg-white relative overflow-hidden tech-grid-subtle">
@@ -1466,10 +1471,10 @@ const Segments = ({ onSelectSegment }: any) => {
                 <img
                   src={segment.image}
                   alt={segment.title}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 opacity-20 group-hover:opacity-40"
+                  className="segment-img w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 opacity-40 group-hover:opacity-60"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/45 to-transparent" />
               </div>
 
               <div className="relative z-10 p-12 h-full flex flex-col">
@@ -1784,6 +1789,50 @@ const HomePage = ({ onSelectSegment }: any) => (
 
 export default function App() {
   const [selectedSegment, setSelectedSegment] = useState<any>(null);
+
+  useEffect(() => {
+    // 1. Color Reveal for Cards/Blog
+    const cardImages = document.querySelectorAll('[class*="card"] img, [class*="blog"] img, [class*="post"] img, .segment-img');
+    const colorObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = entry.target as HTMLElement;
+          target.style.filter = 'grayscale(0%)';
+          target.style.transition = 'filter 0.8s ease';
+        }
+      });
+    }, { threshold: 0.2 });
+
+    cardImages.forEach(img => {
+      (img as HTMLElement).style.filter = 'grayscale(100%)';
+      colorObserver.observe(img);
+    });
+
+    // 2. Background Entrance Animation
+    const bgSections = document.querySelectorAll('section[data-bg-section]');
+    const bgObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = entry.target as HTMLElement;
+          target.style.opacity = '1';
+          target.style.transform = 'scale(1)';
+          target.style.transition = 'opacity 1.2s ease-out, transform 1.2s ease-out';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    bgSections.forEach(section => {
+      const el = section as HTMLElement;
+      el.style.opacity = '0.3';
+      el.style.transform = 'scale(1.05)';
+      bgObserver.observe(el);
+    });
+
+    return () => {
+      colorObserver.disconnect();
+      bgObserver.disconnect();
+    };
+  }, []);
 
   return (
     <BrowserRouter>
